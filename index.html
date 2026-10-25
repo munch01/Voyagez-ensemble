@@ -107,6 +107,10 @@
     (() => {
       "use strict";
       const CONFIG_KEY = "cap-supabase-config";
+      const DEFAULT_SUPABASE_CONFIG = {
+        url: "https://angiuvanxitjqtaaavpe.supabase.co",
+        key: "sb_publishable_nm2eTIS_lboY2zGpfn9bFA_ye8k-kEq"
+      };
       const $ = (id) => document.getElementById(id);
       const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
       const formatDate = (value, options = {weekday:"long",day:"numeric",month:"long"}) => value ? new Intl.DateTimeFormat("fr-FR", options).format(new Date(`${value}T12:00:00`)) : "";
@@ -123,7 +127,10 @@
         clearTimeout(notify.timer); notify.timer=setTimeout(()=>toast.classList.remove("show"),2800);
       };
       const showError = (id, message) => { $(id).textContent = message || ""; };
-      const config = () => { try { return JSON.parse(localStorage.getItem(CONFIG_KEY) || "null"); } catch { return null; } };
+      const config = () => {
+        try { return JSON.parse(localStorage.getItem(CONFIG_KEY) || "null") || DEFAULT_SUPABASE_CONFIG; }
+        catch { return DEFAULT_SUPABASE_CONFIG; }
+      };
       const connect = (settings) => {
         if (!window.supabase?.createClient) return false;
         supabase = window.supabase.createClient(settings.url, settings.key, {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
@@ -132,7 +139,7 @@
       const setAuth = (visible) => { $("auth-screen").classList.toggle("hidden",!visible); $("app-shell").classList.toggle("hidden",visible); };
       const init = async () => {
         const settings=config();
-        if (!settings || !connect(settings)) { setAuth(true); $("config-note").textContent="Configurez d’abord l’URL et la clé publique de votre projet Supabase pour activer les comptes et les voyages partagés."; $("config-note").classList.remove("hidden"); return; }
+        if (!settings || !connect(settings)) { setAuth(true); $("config-note").textContent="La configuration Supabase de l’application est indisponible."; $("config-note").classList.remove("hidden"); return; }
         const {data:{session},error}=await supabase.auth.getSession();
         if(error) console.error("Erreur de lecture de session Supabase.",error);
         if(session) { user=session.user; await showApp(); } else setAuth(true);
