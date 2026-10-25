@@ -21,6 +21,8 @@ Pour autoriser l’inscription et le retour après confirmation de l’adresse e
 
 ## Utilisation et limites
 
+- Dans **Mes voyages**, chaque voyage se déplie pour afficher sa **Feuille de route**, les jours générés depuis ses dates, puis sa **Carte**. Sélectionnez un jour pour l’afficher dans la feuille de route.
+- La feuille de route crée automatiquement une section par jour entre le départ et le retour du voyage, même si aucune étape n’est encore prévue.
 - Une étape contient un nom, un lieu/adresse, les heures de début et de fin, des notes et plusieurs fichiers PDF ou images (20 Mo maximum chacun).
 - Les fichiers sont dans un bucket Supabase **privé**; les liens de consultation sont temporaires. Les règles RLS limitent les voyages, étapes et fichiers aux membres connectés du voyage.
 - Une adresse est recherchée via le service public Nominatim d’OpenStreetMap pour obtenir ses coordonnées. La carte et ce service nécessitent une connexion Internet et sont soumis aux conditions d’utilisation de leurs fournisseurs.
