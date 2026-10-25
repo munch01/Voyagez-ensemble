@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f2">
+  <title>Cap — Organisateur de voyage</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <style>
+    :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#23312b;background:#f5f6f2;font-synthesis:none;text-rendering:optimizeLegibility;--green:#276047;--green-dark:#1d4c37;--pale:#e8f0e9;--muted:#78827c;--line:#e6eae3;--white:#fff}
+    *{box-sizing:border-box}body{margin:0;min-width:320px}button,input,textarea,select{font:inherit}button{cursor:pointer}.shell{max-width:1440px;min-height:100vh;margin:auto;display:grid;grid-template-columns:235px 1fr}.sidebar{background:#fff;border-right:1px solid var(--line);padding:25px 16px;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:10px;padding:0 9px;margin-bottom:32px;font-weight:780;font-size:19px;letter-spacing:-.7px}.logo{width:34px;height:34px;background:var(--green);color:white;display:grid;place-items:center;border-radius:11px}.logo svg{width:20px}.nav-caption{padding:0 11px;margin:0 0 9px;color:#9aa19c;font-size:10px;font-weight:750;letter-spacing:1.2px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#637069;text-align:left;padding:11px 12px;border-radius:9px;font-size:13px}.nav button:hover,.nav button.active{background:var(--pale);color:var(--green);font-weight:680}.side-bottom{margin-top:auto;padding:14px 10px;color:var(--muted);font-size:11px;line-height:1.6}.main{min-width:0;padding:24px 38px 50px}.topbar{height:33px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;color:var(--muted);font-size:12px}.badge{background:var(--pale);color:var(--green);padding:7px 10px;border-radius:20px;font-size:10px}.heading{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:20px}.eyebrow{color:var(--green);font-size:10px;font-weight:750;text-transform:uppercase;letter-spacing:1.3px;margin-bottom:7px}h1{font-size:clamp(25px,3vw,35px);letter-spacing:-1.2px;line-height:1.12;margin:0}h2{font-size:14px;letter-spacing:-.2px;margin:0}.sub{font-size:12px;color:var(--muted);margin:7px 0 0}.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:8px;background:#fff;color:#314039;padding:9px 12px;font-size:11px;font-weight:650}.btn:hover{border-color:#bac9bb}.btn.primary{background:var(--green);border-color:var(--green);color:white}.btn.primary:hover{background:var(--green-dark)}.btn.danger{color:#9f5149}.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px;min-width:0}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.trip-banner{background:var(--green);color:#fff;border-radius:14px;padding:22px 25px;display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.trip-label{color:#c5d9ca;text-transform:uppercase;letter-spacing:1.15px;font-size:10px}.trip-title{font-size:23px;font-weight:700;margin-top:5px;letter-spacing:-.6px}.trip-dates{font-size:11px;color:#d5e4d9;margin-top:7px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:15px}.stat{background:#fff;border:1px solid var(--line);border-radius:11px;padding:13px 15px}.stat-label{font-size:10px;color:var(--muted)}.stat-value{font-size:19px;font-weight:700;margin-top:5px}.layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.8fr);gap:14px}.view{display:none}.view.active{display:block}.field{display:grid;gap:5px;margin-bottom:11px}.field label{font-size:10px;color:#637069;font-weight:670}.field input,.field textarea,.field select{width:100%;border:1px solid #e0e6de;background:#fdfdfb;border-radius:7px;padding:9px 10px;font-size:12px;color:#23312b;outline:none}.field input:focus,.field textarea:focus,.field select:focus{border-color:#7ca18a;box-shadow:0 0 0 3px #e8f0e9}.field textarea{min-height:72px;resize:vertical}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form-grid .field{min-width:0}.error{color:#a23c34;font-size:11px;min-height:15px}.timeline{display:grid;gap:0}.step{display:grid;grid-template-columns:92px 17px minmax(0,1fr);gap:9px;position:relative;padding-bottom:19px}.step:last-child{padding-bottom:0}.step-time{text-align:right;padding-top:3px;font-size:10px;font-weight:750;color:var(--green);white-space:nowrap}.step-rail{position:relative;display:flex;justify-content:center}.step-rail:after{content:"";position:absolute;top:12px;bottom:-5px;width:1px;background:#dbe5db}.step:last-child .step-rail:after{display:none}.dot{width:9px;height:9px;margin-top:4px;border-radius:50%;background:#fff;border:2px solid #609072;z-index:1}.step-card{border:1px solid #edf0ea;border-radius:9px;background:#fdfdfb;padding:11px 12px;min-width:0}.step-card-title{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;font-size:12px;font-weight:700}.step-place{font-weight:500;color:var(--muted);font-size:10px;margin-top:4px}.step-description{white-space:pre-wrap;overflow-wrap:anywhere;color:#55625a;font-size:11px;line-height:1.45;margin-top:7px}.step-actions{display:flex;gap:5px;flex-shrink:0}.tiny{border:0;background:transparent;color:var(--green);font-size:10px;padding:2px 3px}.tiny.delete{color:#a15e56}.attachments{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.file-link{font-size:10px;color:var(--green);background:var(--pale);border-radius:12px;padding:4px 8px;text-decoration:none}.file-link:hover{text-decoration:underline}.map{height:490px;border-radius:9px;overflow:hidden;background:#edf1eb;z-index:0}.map-hint{font-size:10px;color:var(--muted);margin:9px 0 0}.empty{text-align:center;border:1px dashed #dfe5dc;border-radius:9px;padding:25px 12px;color:var(--muted);font-size:11px;line-height:1.5}.empty strong{display:block;color:#314039;font-size:12px;margin-bottom:4px}.stop-list{display:grid;gap:8px}.stop-row{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #edf0ea;border-radius:8px;padding:9px 10px}.stop-name{font-weight:650;font-size:11px}.stop-meta{color:var(--muted);font-size:10px;margin-top:3px}.muted{font-size:10px;color:var(--muted)}.auth-wrap{max-width:420px;margin:7vh auto}.auth-wrap .panel{padding:24px}.auth-tabs{display:flex;gap:15px;margin-bottom:16px}.auth-tabs button{border:0;background:transparent;color:var(--muted);padding:5px 0;font-size:12px}.auth-tabs button.active{color:var(--green);font-weight:700;border-bottom:2px solid var(--green)}.config-note{font-size:11px;line-height:1.5;color:#69746d;background:#f3f5f0;border-radius:8px;padding:11px;margin-bottom:14px}.modal-backdrop{position:fixed;inset:0;background:#17231da6;display:none;align-items:center;justify-content:center;padding:18px;z-index:1000}.modal-backdrop.show{display:flex}.modal{max-width:530px;width:100%;max-height:90vh;overflow:auto;background:#fff;border-radius:13px;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.close{border:0;background:transparent;font-size:20px;color:var(--muted)}.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#243c31;color:#fff;border-radius:8px;padding:10px 14px;font-size:11px;transition:.2s;z-index:1200}.toast.show{opacity:1;transform:translate(-50%,0)}.hidden{display:none!important}.footer{margin-top:23px;color:#9aa19c;text-align:center;font-size:10px}
+    @media(max-width:850px){.shell{grid-template-columns:1fr}.sidebar{padding:12px 14px 9px;border-right:0;border-bottom:1px solid var(--line)}.brand{margin:0 0 10px}.nav-caption,.side-bottom{display:none}.nav{display:flex;overflow-x:auto}.nav button{white-space:nowrap;padding:8px 10px}.main{padding:20px 18px 35px}.topbar{margin-bottom:22px}}
+    @media(max-width:600px){.main{padding:17px 12px 30px}.heading{align-items:flex-start;flex-direction:column}.layout{grid-template-columns:1fr}.stats{gap:7px}.stat{padding:11px 9px}.stat-value{font-size:16px}.form-grid{grid-template-columns:1fr;gap:0}.map{height:370px}.step{grid-template-columns:64px 14px minmax(0,1fr);gap:6px}.step-time{font-size:9px}.trip-banner{padding:18px}.trip-title{font-size:20px}}
+  </style>
+</head>
+<body>
+  <div id="auth-screen" class="auth-wrap hidden">
+    <div class="brand"><span class="logo">↗</span> cap</div>
+    <section class="panel">
+      <h1 style="font-size:25px;margin-bottom:7px">Voyagez ensemble.</h1>
+      <p class="sub" style="margin-bottom:17px">Connectez-vous pour retrouver votre feuille de route partagée.</p>
+      <div id="config-note" class="config-note hidden"></div>
+      <div class="auth-tabs"><button id="login-tab" class="active" type="button">Connexion</button><button id="signup-tab" type="button">Créer un compte</button></div>
+      <form id="auth-form">
+        <div class="field"><label for="auth-email">Adresse e-mail</label><input id="auth-email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="auth-password">Mot de passe</label><input id="auth-password" type="password" autocomplete="current-password" minlength="8" required></div>
+        <div id="auth-error" class="error" role="status"></div>
+        <button class="btn primary" id="auth-submit" type="submit">Se connecter</button>
+      </form>
+    </section>
+    <button class="btn" id="setup-toggle" type="button">Configurer Supabase</button>
+    <section class="panel hidden" id="setup-panel" style="margin-top:12px">
+      <h2 style="margin-bottom:12px">Configuration du projet</h2>
+      <div class="config-note">Ces identifiants publics sont enregistrés dans ce navigateur. N’utilisez jamais la clé « service_role » ici.</div>
+      <form id="setup-form">
+        <div class="field"><label for="supabase-url">URL du projet Supabase</label><input id="supabase-url" type="url" placeholder="https://votre-projet.supabase.co" required></div>
+        <div class="field"><label for="supabase-key">Clé publique anon / publishable</label><input id="supabase-key" type="password" autocomplete="off" required></div>
+        <button class="btn primary" type="submit">Enregistrer la configuration</button>
+      </form>
+    </section>
+  </div>
+  <div id="app-shell" class="shell hidden">
+    <aside class="sidebar">
+      <div class="brand"><span class="logo">↗</span> cap</div>
+      <div class="nav-caption">MON VOYAGE</div>
+      <nav class="nav" aria-label="Navigation">
+        <button class="active" data-view="route">Feuille de route</button>
+        <button data-view="map-view">Carte</button>
+        <button data-view="manage">Voyage &amp; partage</button>
+      </nav>
+      <div class="side-bottom"><span id="user-email"></span><br><button class="tiny" id="logout-button" type="button">Se déconnecter</button></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><span id="crumb">Mes voyages / Feuille de route</span><span class="badge">Voyage partagé</span></header>
+      <section id="view-route" class="view active">
+        <div class="heading">
+          <div><div class="eyebrow">Le voyage, étape par étape</div><h1 id="trip-heading">Ma feuille de route</h1><p class="sub" id="trip-subheading">Organisez le programme et retrouvez vos réservations.</p></div>
+          <div class="actions"><select id="trip-select" class="btn" aria-label="Choisir un voyage"></select><button class="btn primary" id="add-stop-top" type="button">+ Ajouter une étape</button></div>
+        </div>
+        <div class="trip-banner"><div><div class="trip-label">Destination</div><div class="trip-title" id="trip-destination">À définir</div><div class="trip-dates" id="trip-dates"></div></div><div aria-hidden="true" style="font-size:25px">✳</div></div>
+        <div class="stats"><div class="stat"><div class="stat-label">Durée du voyage</div><div id="stat-days" class="stat-value">—</div></div><div class="stat"><div class="stat-label">Étapes au programme</div><div id="stat-stops" class="stat-value">0</div></div><div class="stat"><div class="stat-label">Réservations et billets</div><div id="stat-files" class="stat-value">0</div></div></div>
+        <div class="layout">
+          <section class="panel"><div class="panel-head"><h2>Programme</h2><span class="muted" id="last-updated"></span></div><div id="timeline"></div></section>
+          <section class="panel"><div class="panel-head"><h2>Carte des étapes</h2><button id="fit-map" class="tiny" type="button">Tout afficher</button></div><div id="map" class="map"></div><p class="map-hint">Ajoutez une adresse à chaque étape pour l’afficher sur la carte.</p></section>
+        </div>
+      </section>
+      <section id="view-map-view" class="view">
+        <div class="heading"><div><div class="eyebrow">Les lieux du voyage</div><h1>Carte des étapes</h1><p class="sub">Cliquez sur une étape pour retrouver son horaire et ses documents.</p></div></div>
+        <section class="panel"><div id="map-large" class="map" style="height:min(68vh,690px)"></div><p class="map-hint">Carte © OpenStreetMap. Les tuiles cartographiques sont chargées depuis Internet.</p></section>
+        <section class="panel"><div class="panel-head"><h2>Étapes avec une adresse</h2></div><div id="stop-list" class="stop-list"></div></section>
+      </section>
+      <section id="view-manage" class="view">
+        <div class="heading"><div><div class="eyebrow">Les détails pratiques</div><h1>Voyage &amp; partage</h1><p class="sub">Modifiez le séjour, invitez vos compagnons et gardez vos billets ensemble.</p></div></div>
+        <section class="panel"><div class="panel-head"><h2>Informations du voyage</h2></div>
+          <form id="trip-form"><div class="form-grid">
+            <div class="field"><label for="trip-name">Nom du voyage</label><input id="trip-name" maxlength="80" required></div>
+            <div class="field"><label for="trip-destination-input">Destination</label><input id="trip-destination-input" maxlength="120" placeholder="Ex. Lisbonne, Portugal"></div>
+            <div class="field"><label for="trip-start">Date de départ</label><input id="trip-start" type="date"></div>
+            <div class="field"><label for="trip-end">Date de retour</label><input id="trip-end" type="date"></div>
+          </div><div id="trip-form-error" class="error"></div><button class="btn primary" type="submit">Enregistrer</button></form>
+        </section>
+        <section class="panel"><div class="panel-head"><h2>Inviter des participants</h2></div><p class="sub" style="margin:-7px 0 13px">La personne doit créer son compte Cap avec cette adresse e-mail pour accepter l’invitation. Aucun e-mail automatique n’est envoyé : prévenez-la séparément.</p>
+          <form id="invite-form" class="actions"><input id="invite-email" type="email" required placeholder="adresse@exemple.fr" style="border:1px solid var(--line);border-radius:7px;padding:9px 10px;font-size:11px;min-width:220px"><button class="btn primary" type="submit">Inviter</button></form>
+          <div id="invite-error" class="error" style="margin-top:7px"></div><div id="members-list" class="stop-list"></div>
+          <div id="pending-invites" class="muted" style="margin-top:10px"></div><button class="btn hidden" id="accept-invites" type="button" style="margin-top:9px">Accepter les invitations reçues</button>
+        </section>
+        <section class="panel"><div class="panel-head"><h2>Créer un autre voyage</h2></div><form id="create-trip-form" class="actions"><input id="new-trip-name" required maxlength="80" placeholder="Ex. Road trip en Italie" style="border:1px solid var(--line);border-radius:7px;padding:9px 10px;font-size:11px"><button class="btn" type="submit">Créer</button></form><div id="create-trip-error" class="error" style="margin-top:7px"></div></section>
+      </section>
+      <div class="footer">Cap · Données hébergées dans votre projet Supabase privé.</div>
+    </main>
+  </div>
+  <div id="stop-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="stop-modal-title">
+    <section class="modal"><div class="modal-head"><h2 id="stop-modal-title">Ajouter une étape</h2><button class="close" id="close-modal" type="button" aria-label="Fermer">×</button></div>
+      <form id="stop-form"><input type="hidden" id="stop-id">
+        <div class="form-grid"><div class="field"><label for="stop-title">Nom de l’étape *</label><input id="stop-title" required maxlength="120" placeholder="Ex. Arrivée à l’hôtel"></div><div class="field"><label for="stop-address">Adresse ou lieu</label><input id="stop-address" maxlength="220" placeholder="Ex. Gare centrale, Paris"></div>
+        <div class="field"><label for="stop-start">Début *</label><input id="stop-start" type="datetime-local" required></div><div class="field"><label for="stop-end">Fin *</label><input id="stop-end" type="datetime-local" required></div></div>
+        <div class="field"><label for="stop-description">Détails, numéro de réservation, consignes…</label><textarea id="stop-description" maxlength="3000" placeholder="Ajoutez ici les informations utiles à cette étape."></textarea></div>
+        <div class="field"><label for="stop-files">Billets, confirmations, réservations (PDF, images…)</label><input id="stop-files" type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.webp,.heic,.txt" aria-describedby="file-help"><span class="muted" id="file-help">20 Mo maximum par fichier. Fichiers privés, visibles uniquement aux participants.</span></div>
+        <div id="stop-form-error" class="error"></div><div class="actions"><button class="btn primary" type="submit">Enregistrer l’étape</button><button class="btn" id="cancel-stop" type="button">Annuler</button></div>
+      </form>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (() => {
+      "use strict";
+      const CONFIG_KEY = "cap-supabase-config";
+      const $ = (id) => document.getElementById(id);
+      const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+      const formatDate = (value, options = {weekday:"long",day:"numeric",month:"long"}) => value ? new Intl.DateTimeFormat("fr-FR", options).format(new Date(`${value}T12:00:00`)) : "";
+      const formatTime = (value) => value ? new Intl.DateTimeFormat("fr-FR",{hour:"2-digit",minute:"2-digit"}).format(new Date(value)) : "—";
+      const dateInput = (value) => value ? new Date(new Date(value).getTime()-new Date(value).getTimezoneOffset()*60000).toISOString().slice(0,16) : "";
+      const tripDate = (value) => {
+        if (!value) return "";
+        const date = new Date(value);
+        return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+      };
+      let supabase, user, trips = [], trip = null, stops = [], members = [], markers = [], maps = [], authMode = "login", refreshTimer, channel;
+      const notify = (message) => {
+        const toast=$("toast"); toast.textContent=message; toast.classList.add("show");
+        clearTimeout(notify.timer); notify.timer=setTimeout(()=>toast.classList.remove("show"),2800);
+      };
+      const showError = (id, message) => { $(id).textContent = message || ""; };
+      const config = () => { try { return JSON.parse(localStorage.getItem(CONFIG_KEY) || "null"); } catch { return null; } };
+      const connect = (settings) => {
+        if (!window.supabase?.createClient) return false;
+        supabase = window.supabase.createClient(settings.url, settings.key, {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+        return true;
+      };
+      const setAuth = (visible) => { $("auth-screen").classList.toggle("hidden",!visible); $("app-shell").classList.toggle("hidden",visible); };
+      const init = async () => {
+        const settings=config();
+        if (!settings || !connect(settings)) { setAuth(true); $("config-note").textContent="Configurez d’abord l’URL et la clé publique de votre projet Supabase pour activer les comptes et les voyages partagés."; $("config-note").classList.remove("hidden"); return; }
+        const {data:{session},error}=await supabase.auth.getSession();
+        if(error) console.error("Erreur de lecture de session Supabase.",error);
+        if(session) { user=session.user; await showApp(); } else setAuth(true);
+        supabase.auth.onAuthStateChange((_event,sessionNow)=>{ if(sessionNow?.user){user=sessionNow.user;setTimeout(()=>showApp(),0);}else{user=null;setAuth(true);} });
+      };
+      const authTab = (mode) => {
+        authMode=mode; $("login-tab").classList.toggle("active",mode==="login"); $("signup-tab").classList.toggle("active",mode==="signup");
+        $("auth-submit").textContent=mode==="login"?"Se connecter":"Créer mon compte";
+        $("auth-password").autocomplete=mode==="login"?"current-password":"new-password"; showError("auth-error","");
+      };
+      $("login-tab").addEventListener("click",()=>authTab("login"));
+      $("signup-tab").addEventListener("click",()=>authTab("signup"));
+      $("setup-toggle").addEventListener("click",()=> $("setup-panel").classList.toggle("hidden"));
+      $("setup-form").addEventListener("submit",(event)=>{
+        event.preventDefault();
+        const url=$("supabase-url").value.trim(), key=$("supabase-key").value.trim();
+        if(!/^https:\/\/[a-zA-Z0-9.-]+$/.test(url)){notify("L’URL Supabase doit commencer par https://.");return;}
+        if(!key){notify("Collez la clé publique de votre projet.");return;}
+        localStorage.setItem(CONFIG_KEY,JSON.stringify({url,key}));
+        window.location.reload();
+      });
+      $("auth-form").addEventListener("submit",async(event)=>{
+        event.preventDefault(); showError("auth-error","");
+        if(!supabase){showError("auth-error","Configurez d’abord votre projet Supabase.");return;}
+        const email=$("auth-email").value.trim(),password=$("auth-password").value;
+        const result=authMode==="login"
+          ? await supabase.auth.signInWithPassword({email,password})
+          : await supabase.auth.signUp({email,password});
+        if(result.error){showError("auth-error",result.error.message);return;}
+        if(authMode==="signup"&&!result.data.session)showError("auth-error","Compte créé. Vérifiez votre e-mail pour confirmer l’inscription, puis connectez-vous.");
+        else if(authMode==="signup")notify("Compte créé.");
+      });
+      $("logout-button").addEventListener("click",async()=>{const {error}=await supabase.auth.signOut();if(error){console.error("Déconnexion impossible.",error);notify("Déconnexion impossible.");}});
+      const showApp = async () => {
+        setAuth(false); $("user-email").textContent=user.email||"Compte connecté";
+        try { await loadTrips(); }
+        catch(error){console.error("Chargement des voyages impossible.",error);notify(error.message||"Impossible de charger les voyages.");}
+      };
+      const loadTrips = async () => {
+        const {data,error}=await supabase.from("trips").select("id,name,destination,start_date,end_date,created_at").order("created_at",{ascending:true});
+        if(error)throw error;
+        trips=data||[];
+        const {data:pending,error:pendingError}=await supabase.from("trip_invitations").select("id,trip_id");
+        if(pendingError)throw pendingError;
+        $("pending-invites").textContent=pending?.length?`${pending.length} invitation${pending.length>1?"s":""} en attente.`:"";
+        $("accept-invites").classList.toggle("hidden",!pending?.length);
+        if(!trips.length){trip=null;stops=[];members=[];$("trip-select").innerHTML='<option value="">Aucun voyage</option>';render();return;}
+        const currentId=trips.some(item=>item.id===trip?.id)?trip.id:trips[0].id;
+        $("trip-select").innerHTML=trips.map(item=>`<option value="${escapeHTML(item.id)}"${item.id===currentId?" selected":""}>${escapeHTML(item.name)}</option>`).join("");
+        await selectTrip(currentId);
+      };
+      const selectTrip = async (id) => {
+        trip=trips.find(item=>item.id===id); if(!trip)return;
+        const [stopResult,memberResult]=await Promise.all([
+          supabase.from("stops").select("id,trip_id,title,address,starts_at,ends_at,description,latitude,longitude,created_at").eq("trip_id",id).order("starts_at"),
+          supabase.from("trip_members").select("user_id,email,role,created_at").eq("trip_id",id).order("created_at")
+        ]);
+        if(stopResult.error)throw stopResult.error;if(memberResult.error)throw memberResult.error;
+        stops=stopResult.data||[];members=memberResult.data||[];
+        await loadFiles();render();setupRealtime();
+      };
+      $("trip-select").addEventListener("change",async()=>{try{await selectTrip($("trip-select").value);}catch(error){console.error("Chargement du voyage impossible.",error);notify("Impossible de charger ce voyage.");}});
+      const loadFiles = async () => {
+        if(!stops.length){stops.forEach(item=>item.files=[]);return;}
+        const {data,error}=await supabase.from("stop_attachments").select("id,stop_id,file_name,storage_path,content_type,file_size,created_at").in("stop_id",stops.map(item=>item.id)).order("created_at");
+        if(error)throw error;
+        const byStop=new Map(stops.map(item=>[item.id,[]]));
+        for(const file of data||[])byStop.get(file.stop_id)?.push(file);
+        stops.forEach(item=>item.files=byStop.get(item.id)||[]);
+      };
+      const setupRealtime = () => {
+        if(channel)supabase.removeChannel(channel);
+        if(!trip)return;
+        channel=supabase.channel(`trip-${trip.id}`)
+          .on("postgres_changes",{event:"*",schema:"public",table:"stops",filter:`trip_id=eq.${trip.id}`},()=>refreshSelected())
+          .on("postgres_changes",{event:"*",schema:"public",table:"trips",filter:`id=eq.${trip.id}`},()=>refreshSelected())
+          .on("postgres_changes",{event:"*",schema:"public",table:"stop_attachments"},()=>refreshSelected())
+          .subscribe((status)=>{if(status==="CHANNEL_ERROR")console.warn("La synchronisation en direct n’est pas disponible; actualisation périodique active.");});
+        clearInterval(refreshTimer);refreshTimer=setInterval(()=>refreshSelected().catch(error=>console.error("Actualisation du voyage impossible.",error)),20000);
+      };
+      let refreshLock=false;
+      const refreshSelected=async()=>{if(!trip||refreshLock)return;refreshLock=true;try{const id=trip.id;const {data,error}=await supabase.from("trips").select("id,name,destination,start_date,end_date,created_at").eq("id",id).single();if(error)throw error;trip=data;trips=trips.map(item=>item.id===id?data:item);const [s,m]=await Promise.all([supabase.from("stops").select("id,trip_id,title,address,starts_at,ends_at,description,latitude,longitude,created_at").eq("trip_id",id).order("starts_at"),supabase.from("trip_members").select("user_id,email,role,created_at").eq("trip_id",id).order("created_at")]);if(s.error)throw s.error;if(m.error)throw m.error;stops=s.data||[];members=m.data||[];await loadFiles();render();}finally{refreshLock=false;}};
+      const render = () => {
+        const hasTrip=Boolean(trip);$("add-stop-top").disabled=!hasTrip;
+        if(!hasTrip){$("trip-heading").textContent="Créez votre premier voyage";$("trip-subheading").textContent="Invitez vos compagnons et composez votre feuille de route."; $("trip-destination").textContent="À définir";$("trip-dates").textContent="";$("trip-select").innerHTML='<option value="">Aucun voyage</option>'; $("timeline").innerHTML='<div class="empty"><strong>Aucun voyage pour le moment</strong>Créez-en un dans « Voyage & partage ».</div>'; $("stat-days").textContent="—";$("stat-stops").textContent="0";$("stat-files").textContent="0";$("members-list").innerHTML="";updateMaps([]);return;}
+        $("trip-heading").textContent=trip.name;$("trip-destination").textContent=trip.destination||"Destination à définir";
+        $("trip-dates").textContent=trip.start_date&&trip.end_date?`${formatDate(trip.start_date)} — ${formatDate(trip.end_date)}`:"Dates à définir";
+        $("trip-subheading").textContent=`${members.length} participant${members.length>1?"s":""} · programme partagé`;
+        const start=trip.start_date?new Date(`${trip.start_date}T12:00:00`):null,end=trip.end_date?new Date(`${trip.end_date}T12:00:00`):null;
+        $("stat-days").textContent=start&&end&&end>=start?`${Math.floor((end-start)/86400000)+1} jours`:"—";$("stat-stops").textContent=String(stops.length);$("stat-files").textContent=String(stops.reduce((n,item)=>n+(item.files?.length||0),0));
+        const grouped=stops.reduce((acc,item)=>{const day=tripDate(item.starts_at);(acc[day] ||= []).push(item);return acc;},{});
+        $("timeline").innerHTML=stops.length?Object.entries(grouped).map(([day,items])=>`<div style="margin-bottom:19px"><div class="eyebrow">${escapeHTML(formatDate(day))}</div><div class="timeline">${items.map(renderStop).join("")}</div></div>`).join(""):'<div class="empty"><strong>La route est à vous.</strong>Ajoutez une première étape avec son horaire et son adresse.</div>';
+        $("trip-name").value=trip.name;$("trip-destination-input").value=trip.destination||"";$("trip-start").value=trip.start_date||"";$("trip-end").value=trip.end_date||"";
+        $("members-list").innerHTML=members.map(member=>`<div class="stop-row"><div><div class="stop-name">${escapeHTML(member.email||`Participant ${member.user_id.slice(0,8)}`)}</div><div class="stop-meta">${escapeHTML(member.role||"participant")}</div></div>${member.role==="owner"?'<span class="muted">Propriétaire</span>':""}</div>`).join("");
+        const mapPoints=stops.filter(item=>item.latitude!==null&&item.latitude!==undefined&&item.longitude!==null&&item.longitude!==undefined&&Number.isFinite(Number(item.latitude))&&Number.isFinite(Number(item.longitude)));
+        $("stop-list").innerHTML=mapPoints.length?mapPoints.map(item=>`<div class="stop-row"><div><div class="stop-name">${escapeHTML(item.title)}</div><div class="stop-meta">${escapeHTML(formatTime(item.starts_at))} · ${escapeHTML(item.address||"")}</div></div><button class="tiny" data-focus-stop="${escapeHTML(item.id)}">Voir sur la carte</button></div>`).join(""):'<div class="empty">Aucune étape géolocalisée pour le moment.</div>';
+        updateMaps(mapPoints);
+      };
+      const renderStop = (item) => {
+        const files=(item.files||[]).map(file=>`<a href="#" class="file-link" data-file-id="${escapeHTML(file.id)}">↗ ${escapeHTML(file.file_name)}</a>`).join("");
+        return `<article class="step"><div class="step-time">${escapeHTML(formatTime(item.starts_at))}–${escapeHTML(formatTime(item.ends_at))}</div><div class="step-rail"><span class="dot"></span></div><div class="step-card"><div class="step-card-title"><span>${escapeHTML(item.title)}</span><span class="step-actions"><button class="tiny" data-edit-stop="${escapeHTML(item.id)}">Modifier</button><button class="tiny delete" data-delete-stop="${escapeHTML(item.id)}">×</button></span></div>${item.address?`<div class="step-place">${escapeHTML(item.address)}</div>`:""}${item.description?`<div class="step-description">${escapeHTML(item.description)}</div>`:""}${files?`<div class="attachments">${files}</div>`:""}</div></article>`;
+      };
+      let mapsReady=false;
+      const ensureMaps=()=>{
+        if(mapsReady||!window.L)return;
+        maps=[L.map("map",{scrollWheelZoom:false}),L.map("map-large")];
+        maps.forEach(map=>L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:19}).addTo(map));
+        maps[0].setView([46.6,2.4],5);maps[1].setView([46.6,2.4],5);mapsReady=true;
+      };
+      const updateMaps=(items)=>{
+        ensureMaps();if(!mapsReady)return;
+        markers.forEach(marker=>marker.remove());markers=[];
+        for(const item of items){const marker=L.marker([Number(item.latitude),Number(item.longitude)]).bindPopup(`<strong>${escapeHTML(item.title)}</strong><br>${escapeHTML(formatTime(item.starts_at))}${item.address?`<br>${escapeHTML(item.address)}`:""}`).addTo(maps[0]);markers.push(marker);const second=L.marker([Number(item.latitude),Number(item.longitude)]).bindPopup(`<strong>${escapeHTML(item.title)}</strong><br>${escapeHTML(formatTime(item.starts_at))}`).addTo(maps[1]);markers.push(second);}
+        if(items.length){const bounds=L.latLngBounds(items.map(item=>[Number(item.latitude),Number(item.longitude)]));maps.forEach(map=>map.fitBounds(bounds,{padding:[35,35],maxZoom:14}));}
+        setTimeout(()=>maps.forEach(map=>map.invalidateSize()),80);
+      };
+      document.querySelectorAll(".nav button").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".nav button").forEach(item=>item.classList.toggle("active",item===button));document.querySelectorAll(".view").forEach(view=>view.classList.toggle("active",view.id===`view-${button.dataset.view}`));$("crumb").textContent=`${trip?.name||"Mes voyages"} / ${button.textContent}`;setTimeout(()=>mapsReady&&maps.forEach(map=>map.invalidateSize()),100);}));
+      $("fit-map").addEventListener("click",()=>{if(markers.length){const points=markers.map(marker=>marker.getLatLng());maps.forEach(map=>map.fitBounds(L.latLngBounds(points),{padding:[35,35],maxZoom:14}));}});
+      $("add-stop-top").addEventListener("click",()=>openStop());
+      const openStop=(item=null)=>{
+        $("stop-form").reset();showError("stop-form-error","");$("stop-id").value=item?.id||"";$("stop-modal-title").textContent=item?"Modifier l’étape":"Ajouter une étape";
+        $("stop-title").value=item?.title||"";$("stop-address").value=item?.address||"";$("stop-start").value=dateInput(item?.starts_at);$("stop-end").value=dateInput(item?.ends_at);$("stop-description").value=item?.description||"";
+        $("stop-modal").classList.add("show");$("stop-title").focus();
+      };
+      const closeModal=()=>$("stop-modal").classList.remove("show");
+      $("close-modal").addEventListener("click",closeModal);$("cancel-stop").addEventListener("click",closeModal);$("stop-modal").addEventListener("click",event=>{if(event.target===$("stop-modal"))closeModal();});
+      const geocode=async(address)=>{
+        if(!address)return {latitude:null,longitude:null};
+        const url=`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(address)}`;
+        const response=await fetch(url,{headers:{Accept:"application/json"}});
+        if(!response.ok)throw new Error("Le service de recherche d’adresse est momentanément indisponible.");
+        const results=await response.json();
+        return results.length?{latitude:Number(results[0].lat),longitude:Number(results[0].lon)}:{latitude:null,longitude:null};
+      };
+      const uploadFiles=async(stopId,files)=>{
+        const uploaded=[];
+        try{
+          for(const file of files){
+            if(file.size>20*1024*1024)throw new Error(`${file.name} dépasse la limite de 20 Mo.`);
+            if(!/^(application\/pdf|image\/(png|jpeg|webp|heic)|text\/plain)$/.test(file.type))throw new Error(`Type de fichier non accepté : ${file.name}`);
+            const safeName=file.name.normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100);
+            const path=`${trip.id}/${stopId}/${crypto.randomUUID()}-${safeName}`;
+            const {error:uploadError}=await supabase.storage.from("trip-files").upload(path,file,{contentType:file.type,upsert:false});
+            if(uploadError)throw uploadError;
+            const {data:record,error:rowError}=await supabase.from("stop_attachments").insert({trip_id:trip.id,stop_id:stopId,file_name:file.name,storage_path:path,content_type:file.type,file_size:file.size}).select("id").single();
+            if(rowError){await supabase.storage.from("trip-files").remove([path]);throw rowError;}
+            uploaded.push({id:record.id,path});
+          }
+        }catch(error){
+          const cleanup=[];
+          if(uploaded.length){
+            const {error:recordError}=await supabase.from("stop_attachments").delete().in("id",uploaded.map(item=>item.id));
+            if(recordError)cleanup.push(recordError.message);
+            const {error:storageError}=await supabase.storage.from("trip-files").remove(uploaded.map(item=>item.path));
+            if(storageError)cleanup.push(storageError.message);
+          }
+          if(cleanup.length)throw new Error(`${error.message||"Échec de l’envoi"} Le nettoyage de certains fichiers a échoué : ${cleanup.join("; ")}`);
+          throw error;
+        }
+      };
+      $("stop-form").addEventListener("submit",async(event)=>{
+        event.preventDefault();showError("stop-form-error","");
+        const title=$("stop-title").value.trim(),start=$("stop-start").value,end=$("stop-end").value,address=$("stop-address").value.trim();
+        if(!title||!start||!end)return;
+        if(new Date(end)<new Date(start)){showError("stop-form-error","L’heure de fin doit être après l’heure de début.");return;}
+        const button=event.submitter;button.disabled=true;button.textContent="Enregistrement…";
+        try{
+          let coordinates={latitude:null,longitude:null};
+          if(address){
+            try{coordinates=await geocode(address);}
+            catch(error){console.warn("Géocodage indisponible; l’étape sera enregistrée sans repère.",error);notify("Adresse enregistrée sans repère : recherche de carte indisponible.");}
+          }
+          if(address&&!Number.isFinite(coordinates.latitude))notify("Adresse introuvable sur la carte; l’étape sera enregistrée sans repère.");
+          const values={trip_id:trip.id,title,address:address||null,starts_at:new Date(start).toISOString(),ends_at:new Date(end).toISOString(),description:$("stop-description").value.trim()||null,...coordinates};
+          const id=$("stop-id").value;let result;
+          if(id)result=await supabase.from("stops").update(values).eq("id",id).select("id").single();
+          else result=await supabase.from("stops").insert(values).select("id").single();
+          if(result.error)throw result.error;
+          $("stop-id").value=result.data.id;
+          await uploadFiles(result.data.id,$("stop-files").files);
+          closeModal();await refreshSelected();notify(id?"Étape mise à jour.":"Étape ajoutée à la feuille de route.");
+        }catch(error){console.error("Enregistrement de l’étape impossible.",error);showError("stop-form-error",error.message||"Impossible d’enregistrer cette étape.");if($("stop-id").value)await refreshSelected().catch(refreshError=>console.error("Actualisation après erreur d’envoi impossible.",refreshError));}
+        finally{button.disabled=false;button.textContent="Enregistrer l’étape";}
+      });
+      $("timeline").addEventListener("click",async(event)=>{
+        const editId=event.target.dataset.editStop,deleteId=event.target.dataset.deleteStop,fileId=event.target.dataset.fileId;
+        if(editId){openStop(stops.find(item=>item.id===editId));return;}
+        if(deleteId&&confirm("Supprimer cette étape et ses pièces jointes ?")){
+          const item=stops.find(stop=>stop.id===deleteId);
+          try{if(item?.files?.length){const {error:storageError}=await supabase.storage.from("trip-files").remove(item.files.map(file=>file.storage_path));if(storageError)throw storageError;}const {error}=await supabase.from("stops").delete().eq("id",deleteId);if(error)throw error;await refreshSelected();notify("Étape supprimée.");}
+          catch(error){console.error("Suppression de l’étape impossible.",error);notify(error.message||"Suppression impossible.");}
+          return;
+        }
+        if(fileId){
+          event.preventDefault();const file=stops.flatMap(item=>item.files||[]).find(item=>item.id===fileId);if(!file)return;
+          const {data,error}=await supabase.storage.from("trip-files").createSignedUrl(file.storage_path,300);
+          if(error){console.error("Ouverture de la pièce jointe impossible.",error);notify("Impossible d’ouvrir le fichier.");return;}
+          window.open(data.signedUrl,"_blank","noopener,noreferrer");
+        }
+      });
+      $("stop-list").addEventListener("click",event=>{const id=event.target.dataset.focusStop,item=stops.find(stop=>stop.id===id);if(!item)return;document.querySelector('.nav button[data-view="map-view"]').click();const marker=markers.find(mark=>{const point=mark.getLatLng();return Math.abs(point.lat-Number(item.latitude))<.00001&&Math.abs(point.lng-Number(item.longitude))<.00001;});if(marker){maps[1].setView(marker.getLatLng(),14);marker.openPopup();}});
+      $("trip-form").addEventListener("submit",async(event)=>{
+        event.preventDefault();showError("trip-form-error","");const start=$("trip-start").value||null,end=$("trip-end").value||null;
+        if(start&&end&&end<start){showError("trip-form-error","La date de retour doit être après le départ.");return;}
+        const {error}=await supabase.from("trips").update({name:$("trip-name").value.trim(),destination:$("trip-destination-input").value.trim()||null,start_date:start,end_date:end}).eq("id",trip.id);
+        if(error){console.error("Modification du voyage impossible.",error);showError("trip-form-error",error.message);return;}
+        await refreshSelected();notify("Informations du voyage enregistrées.");
+      });
+      $("invite-form").addEventListener("submit",async(event)=>{
+        event.preventDefault();showError("invite-error","");const email=$("invite-email").value.trim().toLowerCase();
+        const {error}=await supabase.from("trip_invitations").insert({trip_id:trip.id,email,invited_by:user.id});
+        if(error){console.error("Envoi de l’invitation impossible.",error);showError("invite-error",error.code==="23505"?"Cette personne a déjà une invitation en attente.":error.message);return;}
+        $("invite-email").value="";notify("Invitation enregistrée. Demandez à la personne de se connecter pour l’accepter.");
+      });
+      $("accept-invites").addEventListener("click",async()=>{
+        const {data,error}=await supabase.rpc("accept_trip_invitations");
+        if(error){console.error("Acceptation des invitations impossible.",error);notify("Impossible d’accepter les invitations.");return;}
+        await loadTrips();notify(`${data||0} invitation${data===1?"":"s"} acceptée${data===1?"":"s"}.`);
+      });
+      $("create-trip-form").addEventListener("submit",async(event)=>{
+        event.preventDefault();showError("create-trip-error","");
+        const {data,error}=await supabase.from("trips").insert({name:$("new-trip-name").value.trim(),owner_id:user.id}).select("id,name,destination,start_date,end_date,created_at").single();
+        if(error){console.error("Création du voyage impossible.",error);showError("create-trip-error",error.message);return;}
+        $("new-trip-name").value="";trips.push(data);await selectTrip(data.id);$("trip-select").value=data.id;document.querySelector('.nav button[data-view="route"]').click();notify("Voyage créé.");
+      });
+      document.addEventListener("keydown",event=>{if(event.key==="Escape")closeModal();});
+      init().catch(error=>{console.error("Initialisation de Cap impossible.",error);setAuth(true);showError("auth-error","Impossible de joindre Supabase. Vérifiez l’URL et la clé publique.");});
+    })();
+  </script>
+</body>
+</html>
