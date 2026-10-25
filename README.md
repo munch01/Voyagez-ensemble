@@ -24,7 +24,7 @@ Pour autoriser l’inscription et le retour après confirmation de l’adresse e
 - Une étape contient un nom, un lieu/adresse, les heures de début et de fin, des notes et plusieurs fichiers PDF ou images (20 Mo maximum chacun).
 - Les fichiers sont dans un bucket Supabase **privé**; les liens de consultation sont temporaires. Les règles RLS limitent les voyages, étapes et fichiers aux membres connectés du voyage.
 - Une adresse est recherchée via le service public Nominatim d’OpenStreetMap pour obtenir ses coordonnées. La carte et ce service nécessitent une connexion Internet et sont soumis aux conditions d’utilisation de leurs fournisseurs.
-- Le HTML charge Leaflet, Supabase JS et les tuiles de carte depuis leurs CDN. Pour partager l’application, hébergez `index.html` sur un hébergement statique HTTPS accessible aux participants; ne partagez pas le fichier sur lequel un seul navigateur conserverait les identifiants de projet.
+- Le HTML charge Flatpickr (calendriers en français), Leaflet, Supabase JS et les tuiles de carte depuis leurs CDN. Pour partager l’application, hébergez `index.html` sur un hébergement statique HTTPS accessible aux participants; ne partagez pas le fichier sur lequel un seul navigateur conserverait les identifiants de projet.
 - Google Drive n’est pas utilisé comme base de synchronisation. Il pourra être ajouté comme export ou sauvegarde distincte.
 
 ## Protection des données

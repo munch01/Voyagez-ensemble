@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f6f2">
   <title>Voyagez ensemble — Organisateur de voyage</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <style>
     :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#23312b;background:#f5f6f2;font-synthesis:none;text-rendering:optimizeLegibility;--green:#276047;--green-dark:#1d4c37;--pale:#e8f0e9;--muted:#78827c;--line:#e6eae3;--white:#fff}
@@ -128,6 +129,8 @@
     </section>
   </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/fr.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
@@ -149,7 +152,42 @@
         const date = new Date(value);
         return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
       };
-      let supabase, user, trips = [], trip = null, stops = [], members = [], tripInvitations = [], pendingInvitations = [], markers = [], maps = [], authMode = "login", refreshTimer, channel;
+      let supabase, user, trips = [], trip = null, stops = [], members = [], tripInvitations = [], pendingInvitations = [], markers = [], maps = [], datePickers = new Map(), authMode = "login", refreshTimer, channel;
+      const setDateInput = (id,value) => {
+        const picker=datePickers.get(id);
+        if(picker)picker.setDate(value||"",false,picker.config.dateFormat);
+        else $(id).value=value||"";
+      };
+      const initDatePickers = () => {
+        if(!window.flatpickr?.l10ns?.fr)return;
+        const config={
+          locale:window.flatpickr.l10ns.fr,
+          altInput:true,
+          disableMobile:true,
+          allowInput:true,
+          ariaDateFormat:"j F Y",
+          onReady:(_dates,_dateString,instance)=>{
+            instance.monthElements.forEach(element=>element.setAttribute("aria-label","Mois"));
+            instance.currentYearElement.setAttribute("aria-label","Année");
+            instance.prevMonthNav.setAttribute("aria-label","Mois précédent");
+            instance.nextMonthNav.setAttribute("aria-label","Mois suivant");
+          }
+        };
+        for(const id of ["trip-start","trip-end","new-trip-start","new-trip-end"]){
+          const input=$(id);
+          const picker=window.flatpickr(input,{...config,dateFormat:"Y-m-d",altFormat:"j F Y"});
+          picker.altInput.setAttribute("lang","fr");
+          picker.altInput.setAttribute("aria-label",input.closest(".field")?.querySelector("label")?.textContent.trim()||"Date");
+          datePickers.set(id,picker);
+        }
+        for(const id of ["stop-start","stop-end"]){
+          const input=$(id);
+          const picker=window.flatpickr(input,{...config,enableTime:true,time_24hr:true,dateFormat:"Y-m-d\\TH:i",altFormat:"j F Y à H:i"});
+          picker.altInput.setAttribute("lang","fr");
+          picker.altInput.setAttribute("aria-label",input.closest(".field")?.querySelector("label")?.textContent.trim()||"Date et heure");
+          datePickers.set(id,picker);
+        }
+      };
       const notify = (message) => {
         const toast=$("toast"); toast.textContent=message; toast.classList.add("show");
         clearTimeout(notify.timer); notify.timer=setTimeout(()=>toast.classList.remove("show"),2800);
@@ -203,6 +241,8 @@
       $("logout-button").addEventListener("click",async()=>{const {error}=await supabase.auth.signOut();if(error){console.error("Déconnexion impossible.",error);notify("Déconnexion impossible.");}});
       const showTripModal = () => {
         $("create-trip-form").reset();
+        setDateInput("new-trip-start","");
+        setDateInput("new-trip-end","");
         showError("create-trip-error","");
         $("trip-modal").classList.add("show");
         $("new-trip-name").focus();
@@ -285,7 +325,7 @@
         $("stat-days").textContent=start&&end&&end>=start?`${Math.floor((end-start)/86400000)+1} jours`:"—";$("stat-stops").textContent=String(stops.length);$("stat-files").textContent=String(stops.reduce((n,item)=>n+(item.files?.length||0),0));
         const grouped=stops.reduce((acc,item)=>{const day=tripDate(item.starts_at);(acc[day] ||= []).push(item);return acc;},{});
         $("timeline").innerHTML=stops.length?Object.entries(grouped).map(([day,items])=>`<div style="margin-bottom:19px"><div class="eyebrow">${escapeHTML(formatDate(day))}</div><div class="timeline">${items.map(renderStop).join("")}</div></div>`).join(""):'<div class="empty"><strong>La route est à vous.</strong>Ajoutez une première étape avec son horaire et son adresse.</div>';
-        $("trip-name").value=trip.name;$("trip-destination-input").value=trip.destination||"";$("trip-start").value=trip.start_date||"";$("trip-end").value=trip.end_date||"";
+        $("trip-name").value=trip.name;$("trip-destination-input").value=trip.destination||"";setDateInput("trip-start",trip.start_date);setDateInput("trip-end",trip.end_date);
         $("members-list").innerHTML=[...members.map(member=>`<div class="stop-row"><div><div class="stop-name">${escapeHTML(member.email||`Participant ${member.user_id.slice(0,8)}`)}</div><div class="stop-meta">${escapeHTML(member.role||"participant")}</div></div>${member.role==="owner"?'<span class="muted">Propriétaire</span>':""}</div>`),...tripInvitations.map(invitation=>`<div class="stop-row"><div><div class="stop-name">${escapeHTML(invitation.email)}</div><div class="stop-meta">Invitation en attente</div></div><span class="pending-email">En attente</span></div>`)].join("")||'<div class="muted">Aucun participant pour le moment.</div>';
         const mapPoints=stops.filter(item=>item.latitude!==null&&item.latitude!==undefined&&item.longitude!==null&&item.longitude!==undefined&&Number.isFinite(Number(item.latitude))&&Number.isFinite(Number(item.longitude)));
         $("stop-list").innerHTML=mapPoints.length?mapPoints.map(item=>`<div class="stop-row"><div><div class="stop-name">${escapeHTML(item.title)}</div><div class="stop-meta">${escapeHTML(formatTime(item.starts_at))} · ${escapeHTML(item.address||"")}</div></div><button class="tiny" data-focus-stop="${escapeHTML(item.id)}">Voir sur la carte</button></div>`).join(""):'<div class="empty">Aucune étape géolocalisée pour le moment.</div>';
@@ -314,7 +354,7 @@
       $("add-stop-top").addEventListener("click",()=>openStop());
       const openStop=(item=null)=>{
         $("stop-form").reset();showError("stop-form-error","");$("stop-id").value=item?.id||"";$("stop-modal-title").textContent=item?"Modifier l’étape":"Ajouter une étape";
-        $("stop-title").value=item?.title||"";$("stop-address").value=item?.address||"";$("stop-start").value=dateInput(item?.starts_at);$("stop-end").value=dateInput(item?.ends_at);$("stop-description").value=item?.description||"";
+        $("stop-title").value=item?.title||"";$("stop-address").value=item?.address||"";setDateInput("stop-start",dateInput(item?.starts_at));setDateInput("stop-end",dateInput(item?.ends_at));$("stop-description").value=item?.description||"";
         $("stop-modal").classList.add("show");$("stop-title").focus();
       };
       const closeModal=()=>$("stop-modal").classList.remove("show");
@@ -436,23 +476,28 @@
         const invalidEmail=emails.find(email=>!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
         if(invalidEmail){showError("create-trip-error",`Adresse e-mail invalide : ${invalidEmail}`);return;}
         const button=$("create-trip-submit");button.disabled=true;button.textContent="Création…";
+        const existingTripIds=new Set(trips.map(item=>item.id));
+        let tripCreated=false;
         try{
-          const {data,error}=await supabase.from("trips").insert({
+          const {error}=await supabase.from("trips").insert({
             name:$("new-trip-name").value.trim(),
             destination:$("new-trip-destination").value.trim()||null,
             start_date:start,
             end_date:end,
             owner_id:user.id
-          }).select("id,name,destination,start_date,end_date,created_at").single();
+          });
           if(error)throw error;
-          trips.push(data);
-          await selectTrip(data.id);
-          document.querySelector('.nav button[data-view="route"]').click();
+          tripCreated=true;
           closeTripModal();
+          await loadTrips();
+          const createdTrip=trips.find(item=>!existingTripIds.has(item.id));
+          if(!createdTrip)throw new Error("Le voyage a été enregistré, mais il n’apparaît pas encore dans votre liste. Actualisez la page.");
+          await selectTrip(createdTrip.id);
+          document.querySelector('.nav button[data-view="route"]').click();
           if(emails.length){
             const invitees=emails.filter(email=>email!==user.email?.toLowerCase());
             if(invitees.length){
-              const {error:inviteError}=await supabase.from("trip_invitations").insert(invitees.map(email=>({trip_id:data.id,email,invited_by:user.id})));
+              const {error:inviteError}=await supabase.from("trip_invitations").insert(invitees.map(email=>({trip_id:createdTrip.id,email,invited_by:user.id})));
               if(inviteError){
                 console.error("Voyage créé, mais les invitations n’ont pas toutes été enregistrées.",inviteError);
                 $("trip-details").open=true;
@@ -464,10 +509,19 @@
               }
             }else notify("Voyage créé. Votre adresse a été ignorée dans les invitations.");
           }else notify("Voyage créé.");
-        }catch(error){console.error("Création du voyage impossible.",error);showError("create-trip-error",error.message||"Impossible de créer le voyage.");}
+        }catch(error){
+          console.error(tripCreated?"Voyage créé, mais son chargement a échoué.":"Création du voyage impossible.",error);
+          const accessDenied=error.code==="42501"&&/row-level security/i.test(error.message||"");
+          showError("create-trip-error",tripCreated
+            ?"Le voyage a été enregistré, mais le chargement a échoué. Actualisez la page."
+            :accessDenied
+              ?"Supabase bloque la création avec les règles de sécurité du voyage. Aucune donnée n’a été enregistrée."
+              :error.message||"Impossible de créer le voyage.");
+        }
         finally{button.disabled=false;button.textContent="Créer le voyage";}
       });
       document.addEventListener("keydown",event=>{if(event.key==="Escape"){closeModal();closeTripModal();}});
+      initDatePickers();
       init().catch(error=>{console.error("Initialisation de Cap impossible.",error);setAuth(true);showError("auth-error","Impossible de joindre Supabase. Vérifiez l’URL et la clé publique.");});
     })();
   </script>
