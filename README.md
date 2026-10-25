@@ -1,4 +1,4 @@
-# Cap — feuille de route de voyage
+# Voyagez ensemble — feuille de route de voyage
 
 Application web en français, prévue pour Firefox récent. Elle permet de gérer des voyages partagés, de planifier des étapes avec heures de début et de fin, de les placer sur une carte OpenStreetMap et d’associer des billets ou réservations privés à chaque étape.
 
@@ -8,8 +8,8 @@ Application web en français, prévue pour Firefox récent. Elle permet de gére
 2. Dans **SQL Editor**, exécutez le contenu de [`supabase.sql`](./supabase.sql). Cela crée les tables, les règles d’accès et le bucket privé de pièces jointes.
 3. Dans **Project Settings → API**, copiez l’URL du projet et la clé publique **anon** (ou **publishable**). Ne mettez jamais une clé `service_role` dans cette application.
 4. La configuration publique du projet est préremplie dans l’application. La clé `publishable` est destinée au navigateur et est protégée par les politiques RLS du script SQL; n’utilisez jamais une clé secrète ou `service_role`.
-5. Ouvrez l’application sur son adresse HTTPS, puis créez un compte. Selon la configuration d’authentification du projet, il faudra confirmer l’adresse e-mail avant de se connecter. Créez un voyage depuis **Voyage & partage**.
-6. Pour partager le voyage, chaque participant crée son compte Cap avec l’adresse e-mail invitée, puis accepte l’invitation dans **Voyage & partage**. Cap n’envoie pas de courriel d’invitation automatique : prévenez la personne séparément. Le partage fonctionne entre personnes qui utilisent la même version hébergée de l’application et le même projet Supabase.
+5. Ouvrez l’application sur son adresse HTTPS, puis créez un compte. Selon la configuration d’authentification du projet, il faudra confirmer l’adresse e-mail avant de se connecter. Cliquez sur le **+** à côté de **Mes voyages** pour créer un voyage avec son nom, sa destination, ses dates et les e-mails des participants.
+6. Les informations du voyage restent modifiables dans **Informations et participants** sur la feuille de route. Pour partager le voyage, chaque participant crée son compte avec l’adresse e-mail invitée, puis accepte l’invitation depuis la feuille de route. L’application n’envoie pas de courriel automatique : prévenez la personne séparément. Le partage fonctionne entre personnes qui utilisent la même version hébergée de l’application et le même projet Supabase.
 
 Pour que les données se mettent à jour immédiatement chez les autres participants, activez la réplication Realtime dans Supabase pour les tables `trips`, `stops` et `stop_attachments` (**Database → Publications → supabase_realtime**). Sans cela, l’application actualise le voyage automatiquement toutes les 20 secondes.
 

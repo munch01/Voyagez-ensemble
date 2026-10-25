@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <style>
     :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#23312b;background:#f5f6f2;font-synthesis:none;text-rendering:optimizeLegibility;--green:#276047;--green-dark:#1d4c37;--pale:#e8f0e9;--muted:#78827c;--line:#e6eae3;--white:#fff}
-    *{box-sizing:border-box}body{margin:0;min-width:320px}button,input,textarea,select{font:inherit}button{cursor:pointer}.shell{max-width:1440px;min-height:100vh;margin:auto;display:grid;grid-template-columns:235px 1fr}.sidebar{background:#fff;border-right:1px solid var(--line);padding:25px 16px;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:10px;padding:0 9px;margin-bottom:32px;font-weight:780;font-size:19px;letter-spacing:-.7px}.logo{width:34px;height:34px;background:var(--green);color:white;display:grid;place-items:center;border-radius:11px}.logo svg{width:20px}.nav-caption{padding:0 11px;margin:0 0 9px;color:#9aa19c;font-size:10px;font-weight:750;letter-spacing:1.2px}.trip-picker{margin-bottom:18px}.trip-picker summary{list-style:none;cursor:pointer;padding:10px 11px;color:#56635b;font-size:11px;font-weight:750;letter-spacing:.3px;border-radius:8px}.trip-picker summary::-webkit-details-marker{display:none}.trip-picker summary:after{content:"⌄";float:right;font-size:14px;line-height:12px;transition:transform .15s}.trip-picker[open] summary:after{transform:rotate(180deg)}.trip-picker summary:hover{background:#f7f8f5}.trip-picker-list{display:grid;gap:3px;padding:3px 0 0 8px;max-height:210px;overflow:auto}.trip-picker-list button{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;border:0;background:transparent;color:#68746d;padding:9px 10px;border-radius:8px;font-size:12px}.trip-picker-list button:hover{background:#f6f7f4}.trip-picker-list button.active{background:var(--pale);color:var(--green);font-weight:700}.trip-picker-empty{padding:8px 10px;color:var(--muted);font-size:11px;line-height:1.5}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#637069;text-align:left;padding:11px 12px;border-radius:9px;font-size:13px}.nav button:hover,.nav button.active{background:var(--pale);color:var(--green);font-weight:680}.side-bottom{margin-top:auto;padding:14px 10px;color:var(--muted);font-size:11px;line-height:1.6}.main{min-width:0;padding:24px 38px 50px}.topbar{height:33px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;color:var(--muted);font-size:12px}.badge{background:var(--pale);color:var(--green);padding:7px 10px;border-radius:20px;font-size:10px}.heading{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:20px}.eyebrow{color:var(--green);font-size:10px;font-weight:750;text-transform:uppercase;letter-spacing:1.3px;margin-bottom:7px}h1{font-size:clamp(25px,3vw,35px);letter-spacing:-1.2px;line-height:1.12;margin:0}h2{font-size:14px;letter-spacing:-.2px;margin:0}.sub{font-size:12px;color:var(--muted);margin:7px 0 0}.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:8px;background:#fff;color:#314039;padding:9px 12px;font-size:11px;font-weight:650}.btn:hover{border-color:#bac9bb}.btn.primary{background:var(--green);border-color:var(--green);color:white}.btn.primary:hover{background:var(--green-dark)}.btn.danger{color:#9f5149}.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px;min-width:0}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.trip-banner{background:var(--green);color:#fff;border-radius:14px;padding:22px 25px;display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.trip-label{color:#c5d9ca;text-transform:uppercase;letter-spacing:1.15px;font-size:10px}.trip-title{font-size:23px;font-weight:700;margin-top:5px;letter-spacing:-.6px}.trip-dates{font-size:11px;color:#d5e4d9;margin-top:7px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:15px}.stat{background:#fff;border:1px solid var(--line);border-radius:11px;padding:13px 15px}.stat-label{font-size:10px;color:var(--muted)}.stat-value{font-size:19px;font-weight:700;margin-top:5px}.layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.8fr);gap:14px}.view{display:none}.view.active{display:block}.field{display:grid;gap:5px;margin-bottom:11px}.field label{font-size:10px;color:#637069;font-weight:670}.field input,.field textarea,.field select{width:100%;border:1px solid #e0e6de;background:#fdfdfb;border-radius:7px;padding:9px 10px;font-size:12px;color:#23312b;outline:none}.field input:focus,.field textarea:focus,.field select:focus{border-color:#7ca18a;box-shadow:0 0 0 3px #e8f0e9}.field textarea{min-height:72px;resize:vertical}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form-grid .field{min-width:0}.error{color:#a23c34;font-size:11px;min-height:15px}.timeline{display:grid;gap:0}.step{display:grid;grid-template-columns:92px 17px minmax(0,1fr);gap:9px;position:relative;padding-bottom:19px}.step:last-child{padding-bottom:0}.step-time{text-align:right;padding-top:3px;font-size:10px;font-weight:750;color:var(--green);white-space:nowrap}.step-rail{position:relative;display:flex;justify-content:center}.step-rail:after{content:"";position:absolute;top:12px;bottom:-5px;width:1px;background:#dbe5db}.step:last-child .step-rail:after{display:none}.dot{width:9px;height:9px;margin-top:4px;border-radius:50%;background:#fff;border:2px solid #609072;z-index:1}.step-card{border:1px solid #edf0ea;border-radius:9px;background:#fdfdfb;padding:11px 12px;min-width:0}.step-card-title{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;font-size:12px;font-weight:700}.step-place{font-weight:500;color:var(--muted);font-size:10px;margin-top:4px}.step-description{white-space:pre-wrap;overflow-wrap:anywhere;color:#55625a;font-size:11px;line-height:1.45;margin-top:7px}.step-actions{display:flex;gap:5px;flex-shrink:0}.tiny{border:0;background:transparent;color:var(--green);font-size:10px;padding:2px 3px}.tiny.delete{color:#a15e56}.attachments{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.file-link{font-size:10px;color:var(--green);background:var(--pale);border-radius:12px;padding:4px 8px;text-decoration:none}.file-link:hover{text-decoration:underline}.map{height:490px;border-radius:9px;overflow:hidden;background:#edf1eb;z-index:0}.map-hint{font-size:10px;color:var(--muted);margin:9px 0 0}.empty{text-align:center;border:1px dashed #dfe5dc;border-radius:9px;padding:25px 12px;color:var(--muted);font-size:11px;line-height:1.5}.empty strong{display:block;color:#314039;font-size:12px;margin-bottom:4px}.stop-list{display:grid;gap:8px}.stop-row{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #edf0ea;border-radius:8px;padding:9px 10px}.stop-name{font-weight:650;font-size:11px}.stop-meta{color:var(--muted);font-size:10px;margin-top:3px}.muted{font-size:10px;color:var(--muted)}.auth-wrap{max-width:420px;margin:7vh auto}.auth-wrap .panel{padding:24px}.auth-tabs{display:flex;gap:15px;margin-bottom:16px}.auth-tabs button{border:0;background:transparent;color:var(--muted);padding:5px 0;font-size:12px}.auth-tabs button.active{color:var(--green);font-weight:700;border-bottom:2px solid var(--green)}.config-note{font-size:11px;line-height:1.5;color:#69746d;background:#f3f5f0;border-radius:8px;padding:11px;margin-bottom:14px}.modal-backdrop{position:fixed;inset:0;background:#17231da6;display:none;align-items:center;justify-content:center;padding:18px;z-index:1000}.modal-backdrop.show{display:flex}.modal{max-width:530px;width:100%;max-height:90vh;overflow:auto;background:#fff;border-radius:13px;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.close{border:0;background:transparent;font-size:20px;color:var(--muted)}.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#243c31;color:#fff;border-radius:8px;padding:10px 14px;font-size:11px;transition:.2s;z-index:1200}.toast.show{opacity:1;transform:translate(-50%,0)}.hidden{display:none!important}.footer{margin-top:23px;color:#9aa19c;text-align:center;font-size:10px}
+    *{box-sizing:border-box}body{margin:0;min-width:320px}button,input,textarea,select{font:inherit}button{cursor:pointer}.shell{max-width:1440px;min-height:100vh;margin:auto;display:grid;grid-template-columns:235px 1fr}.sidebar{background:#fff;border-right:1px solid var(--line);padding:25px 16px;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:10px;padding:0 9px;margin-bottom:32px;font-weight:780;font-size:19px;letter-spacing:-.7px}.logo{width:34px;height:34px;background:var(--green);color:white;display:grid;place-items:center;border-radius:11px}.logo svg{width:20px}.nav-caption{padding:0 11px;margin:0 0 9px;color:#9aa19c;font-size:10px;font-weight:750;letter-spacing:1.2px}.trip-picker{margin-bottom:18px}.trip-picker-head{display:flex;align-items:center;gap:5px}.trip-picker summary{list-style:none;cursor:pointer;flex:1;padding:10px 11px;color:#56635b;font-size:11px;font-weight:750;letter-spacing:.3px;border-radius:8px}.trip-picker summary::-webkit-details-marker{display:none}.trip-picker summary:after{content:"⌄";float:right;font-size:14px;line-height:12px;transition:transform .15s}.trip-picker[open] summary:after{transform:rotate(180deg)}.trip-picker summary:hover{background:#f7f8f5}.trip-add{width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--green);font-size:19px;line-height:1}.trip-add:hover{background:var(--pale);border-color:#c7d6c8}.trip-picker-list{display:grid;gap:3px;padding:3px 0 0 8px;max-height:210px;overflow:auto}.trip-picker-list button{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;border:0;background:transparent;color:#68746d;padding:9px 10px;border-radius:8px;font-size:12px}.trip-picker-list button:hover{background:#f6f7f4}.trip-picker-list button.active{background:var(--pale);color:var(--green);font-weight:700}.trip-picker-empty{padding:8px 10px;color:var(--muted);font-size:11px;line-height:1.5}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#637069;text-align:left;padding:11px 12px;border-radius:9px;font-size:13px}.nav button:hover,.nav button.active{background:var(--pale);color:var(--green);font-weight:680}.side-bottom{margin-top:auto;padding:14px 10px;color:var(--muted);font-size:11px;line-height:1.6}.main{min-width:0;padding:24px 38px 50px}.topbar{height:33px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;color:var(--muted);font-size:12px}.badge{background:var(--pale);color:var(--green);padding:7px 10px;border-radius:20px;font-size:10px}.heading{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:20px}.eyebrow{color:var(--green);font-size:10px;font-weight:750;text-transform:uppercase;letter-spacing:1.3px;margin-bottom:7px}h1{font-size:clamp(25px,3vw,35px);letter-spacing:-1.2px;line-height:1.12;margin:0}h2{font-size:14px;letter-spacing:-.2px;margin:0}.sub{font-size:12px;color:var(--muted);margin:7px 0 0}.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:8px;background:#fff;color:#314039;padding:9px 12px;font-size:11px;font-weight:650}.btn:hover{border-color:#bac9bb}.btn.primary{background:var(--green);border-color:var(--green);color:white}.btn.primary:hover{background:var(--green-dark)}.btn.danger{color:#9f5149}.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px;min-width:0}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.trip-banner{background:var(--green);color:#fff;border-radius:14px;padding:22px 25px;display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.trip-label{color:#c5d9ca;text-transform:uppercase;letter-spacing:1.15px;font-size:10px}.trip-title{font-size:23px;font-weight:700;margin-top:5px;letter-spacing:-.6px}.trip-dates{font-size:11px;color:#d5e4d9;margin-top:7px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:15px}.stat{background:#fff;border:1px solid var(--line);border-radius:11px;padding:13px 15px}.stat-label{font-size:10px;color:var(--muted)}.stat-value{font-size:19px;font-weight:700;margin-top:5px}.layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.8fr);gap:14px}.view{display:none}.view.active{display:block}.field{display:grid;gap:5px;margin-bottom:11px}.field label{font-size:10px;color:#637069;font-weight:670}.field input,.field textarea,.field select{width:100%;border:1px solid #e0e6de;background:#fdfdfb;border-radius:7px;padding:9px 10px;font-size:12px;color:#23312b;outline:none}.field input:focus,.field textarea:focus,.field select:focus{border-color:#7ca18a;box-shadow:0 0 0 3px #e8f0e9}.field textarea{min-height:72px;resize:vertical}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form-grid .field{min-width:0}.error{color:#a23c34;font-size:11px;min-height:15px}.timeline{display:grid;gap:0}.step{display:grid;grid-template-columns:92px 17px minmax(0,1fr);gap:9px;position:relative;padding-bottom:19px}.step:last-child{padding-bottom:0}.step-time{text-align:right;padding-top:3px;font-size:10px;font-weight:750;color:var(--green);white-space:nowrap}.step-rail{position:relative;display:flex;justify-content:center}.step-rail:after{content:"";position:absolute;top:12px;bottom:-5px;width:1px;background:#dbe5db}.step:last-child .step-rail:after{display:none}.dot{width:9px;height:9px;margin-top:4px;border-radius:50%;background:#fff;border:2px solid #609072;z-index:1}.step-card{border:1px solid #edf0ea;border-radius:9px;background:#fdfdfb;padding:11px 12px;min-width:0}.step-card-title{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;font-size:12px;font-weight:700}.step-place{font-weight:500;color:var(--muted);font-size:10px;margin-top:4px}.step-description{white-space:pre-wrap;overflow-wrap:anywhere;color:#55625a;font-size:11px;line-height:1.45;margin-top:7px}.step-actions{display:flex;gap:5px;flex-shrink:0}.tiny{border:0;background:transparent;color:var(--green);font-size:10px;padding:2px 3px}.tiny.delete{color:#a15e56}.attachments{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.file-link{font-size:10px;color:var(--green);background:var(--pale);border-radius:12px;padding:4px 8px;text-decoration:none}.file-link:hover{text-decoration:underline}.map{height:490px;border-radius:9px;overflow:hidden;background:#edf1eb;z-index:0}.map-hint{font-size:10px;color:var(--muted);margin:9px 0 0}.empty{text-align:center;border:1px dashed #dfe5dc;border-radius:9px;padding:25px 12px;color:var(--muted);font-size:11px;line-height:1.5}.empty strong{display:block;color:#314039;font-size:12px;margin-bottom:4px}.stop-list{display:grid;gap:8px}.stop-row{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #edf0ea;border-radius:8px;padding:9px 10px}.stop-name{font-weight:650;font-size:11px}.stop-meta{color:var(--muted);font-size:10px;margin-top:3px}.muted{font-size:10px;color:var(--muted)}.auth-wrap{max-width:420px;margin:7vh auto}.auth-wrap .panel{padding:24px}.auth-tabs{display:flex;gap:15px;margin-bottom:16px}.auth-tabs button{border:0;background:transparent;color:var(--muted);padding:5px 0;font-size:12px}.auth-tabs button.active{color:var(--green);font-weight:700;border-bottom:2px solid var(--green)}.config-note{font-size:11px;line-height:1.5;color:#69746d;background:#f3f5f0;border-radius:8px;padding:11px;margin-bottom:14px}.modal-backdrop{position:fixed;inset:0;background:#17231da6;display:none;align-items:center;justify-content:center;padding:18px;z-index:1000}.modal-backdrop.show{display:flex}.modal{max-width:530px;width:100%;max-height:90vh;overflow:auto;background:#fff;border-radius:13px;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.close{border:0;background:transparent;font-size:20px;color:var(--muted)}.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#243c31;color:#fff;border-radius:8px;padding:10px 14px;font-size:11px;transition:.2s;z-index:1200}.toast.show{transform:translate(-50%,0);opacity:1;pointer-events:none}.hidden{display:none!important}.footer{margin-top:23px;color:#9aa19c;text-align:center;font-size:10px}
+    .trip-details>summary{list-style:none;cursor:pointer;margin-bottom:0}.trip-details>summary::-webkit-details-marker{display:none}.trip-details>summary:after{content:"⌄";color:var(--muted);font-size:16px;transition:transform .15s}.trip-details[open]>summary{margin-bottom:16px}.trip-details[open]>summary:after{transform:rotate(180deg)}.trip-details .panel-head{margin-bottom:0}.trip-details .panel-head h2{margin-right:auto}.trip-details form .actions input{max-width:340px}.pending-email{font-size:10px;color:#68746d;background:#f3f5f0;border-radius:20px;padding:5px 9px}.incoming-invites:not(.hidden){display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
     @media(max-width:850px){.shell{grid-template-columns:1fr}.sidebar{padding:12px 14px 9px;border-right:0;border-bottom:1px solid var(--line)}.brand{margin:0 0 10px}.nav-caption,.side-bottom{display:none}.trip-picker{margin-bottom:8px}.trip-picker-list{display:flex;max-height:none;overflow-x:auto;padding:0}.trip-picker-list button{width:auto;max-width:220px;flex:0 0 auto}.nav{display:flex;overflow-x:auto}.nav button{white-space:nowrap;padding:8px 10px}.main{padding:20px 18px 35px}.topbar{margin-bottom:22px}}
     @media(max-width:600px){.main{padding:17px 12px 30px}.heading{align-items:flex-start;flex-direction:column}.layout{grid-template-columns:1fr}.stats{gap:7px}.stat{padding:11px 9px}.stat-value{font-size:16px}.form-grid{grid-template-columns:1fr;gap:0}.map{height:370px}.step{grid-template-columns:64px 14px minmax(0,1fr);gap:6px}.step-time{font-size:9px}.trip-banner{padding:18px}.trip-title{font-size:20px}}
   </style>
@@ -43,14 +44,12 @@
     <aside class="sidebar">
       <div class="brand"><span class="logo">↗</span> Voyagez ensemble</div>
       <details class="trip-picker" id="trip-picker" open>
-        <summary>Mes voyages</summary>
+        <div class="trip-picker-head"><summary>Mes voyages</summary><button class="trip-add" id="create-trip-open" type="button" aria-label="Ajouter un voyage" title="Ajouter un voyage">+</button></div>
         <div class="trip-picker-list" id="sidebar-trips" role="list"></div>
       </details>
-      <div class="nav-caption">MENU DU VOYAGE</div>
       <nav class="nav" aria-label="Navigation">
         <button class="active" data-view="route">Feuille de route</button>
         <button data-view="map-view">Carte</button>
-        <button data-view="manage">Voyage &amp; partage</button>
       </nav>
       <div class="side-bottom"><span id="user-email"></span><br><button class="tiny" id="logout-button" type="button">Se déconnecter</button></div>
     </aside>
@@ -61,8 +60,33 @@
           <div><div class="eyebrow">Le voyage, étape par étape</div><h1 id="trip-heading">Ma feuille de route</h1><p class="sub" id="trip-subheading">Organisez le programme et retrouvez vos réservations.</p></div>
           <div class="actions"><button class="btn primary" id="add-stop-top" type="button">+ Ajouter une étape</button></div>
         </div>
+        <div id="incoming-invites" class="panel incoming-invites hidden">
+          <span id="incoming-invites-message" class="muted"></span>
+          <button class="btn primary" id="accept-invites" type="button">Accepter les invitations reçues</button>
+        </div>
         <div class="trip-banner"><div><div class="trip-label">Destination</div><div class="trip-title" id="trip-destination">À définir</div><div class="trip-dates" id="trip-dates"></div></div><div aria-hidden="true" style="font-size:25px">✳</div></div>
         <div class="stats"><div class="stat"><div class="stat-label">Durée du voyage</div><div id="stat-days" class="stat-value">—</div></div><div class="stat"><div class="stat-label">Étapes au programme</div><div id="stat-stops" class="stat-value">0</div></div><div class="stat"><div class="stat-label">Réservations et billets</div><div id="stat-files" class="stat-value">0</div></div></div>
+        <details class="panel trip-details" id="trip-details">
+          <summary class="panel-head"><h2>Informations et participants</h2><span class="muted">Modifier le voyage ou inviter quelqu’un</span></summary>
+          <form id="trip-form">
+            <div class="form-grid">
+              <div class="field"><label for="trip-name">Nom du voyage *</label><input id="trip-name" maxlength="80" required></div>
+              <div class="field"><label for="trip-destination-input">Destination / lieux</label><input id="trip-destination-input" maxlength="120" placeholder="Ex. Lisbonne, Portugal"></div>
+              <div class="field"><label for="trip-start">Date de départ</label><input id="trip-start" type="date"></div>
+              <div class="field"><label for="trip-end">Date de retour</label><input id="trip-end" type="date"></div>
+            </div>
+            <div id="trip-form-error" class="error" role="status"></div>
+            <button class="btn primary" type="submit">Enregistrer les informations</button>
+          </form>
+          <div style="border-top:1px solid var(--line);margin:18px 0 15px"></div>
+          <div class="panel-head"><h2>Participants</h2><span class="muted" id="pending-invites"></span></div>
+          <div id="members-list" class="stop-list"></div>
+          <form id="invite-form" class="actions" style="margin-top:12px">
+            <input id="invite-email" type="email" required placeholder="E-mail du participant" aria-label="E-mail du participant" style="border:1px solid var(--line);border-radius:7px;padding:9px 10px;font-size:11px;min-width:220px">
+            <button class="btn" id="invite-button" type="submit">Ajouter par e-mail</button>
+          </form>
+          <div id="invite-error" class="error" role="status" style="margin-top:7px"></div>
+        </details>
         <div class="layout">
           <section class="panel"><div class="panel-head"><h2>Programme</h2><span class="muted" id="last-updated"></span></div><div id="timeline"></div></section>
           <section class="panel"><div class="panel-head"><h2>Carte des étapes</h2><button id="fit-map" class="tiny" type="button">Tout afficher</button></div><div id="map" class="map"></div><p class="map-hint">Ajoutez une adresse à chaque étape pour l’afficher sur la carte.</p></section>
@@ -73,25 +97,24 @@
         <section class="panel"><div id="map-large" class="map" style="height:min(68vh,690px)"></div><p class="map-hint">Carte © OpenStreetMap. Les tuiles cartographiques sont chargées depuis Internet.</p></section>
         <section class="panel"><div class="panel-head"><h2>Étapes avec une adresse</h2></div><div id="stop-list" class="stop-list"></div></section>
       </section>
-      <section id="view-manage" class="view">
-        <div class="heading"><div><div class="eyebrow">Les détails pratiques</div><h1>Voyage &amp; partage</h1><p class="sub">Modifiez le séjour, invitez vos compagnons et gardez vos billets ensemble.</p></div></div>
-        <section class="panel"><div class="panel-head"><h2>Informations du voyage</h2></div>
-          <form id="trip-form"><div class="form-grid">
-            <div class="field"><label for="trip-name">Nom du voyage</label><input id="trip-name" maxlength="80" required></div>
-            <div class="field"><label for="trip-destination-input">Destination</label><input id="trip-destination-input" maxlength="120" placeholder="Ex. Lisbonne, Portugal"></div>
-            <div class="field"><label for="trip-start">Date de départ</label><input id="trip-start" type="date"></div>
-            <div class="field"><label for="trip-end">Date de retour</label><input id="trip-end" type="date"></div>
-          </div><div id="trip-form-error" class="error"></div><button class="btn primary" type="submit">Enregistrer</button></form>
-        </section>
-        <section class="panel"><div class="panel-head"><h2>Inviter des participants</h2></div><p class="sub" style="margin:-7px 0 13px">La personne doit créer son compte Cap avec cette adresse e-mail pour accepter l’invitation. Aucun e-mail automatique n’est envoyé : prévenez-la séparément.</p>
-          <form id="invite-form" class="actions"><input id="invite-email" type="email" required placeholder="adresse@exemple.fr" style="border:1px solid var(--line);border-radius:7px;padding:9px 10px;font-size:11px;min-width:220px"><button class="btn primary" type="submit">Inviter</button></form>
-          <div id="invite-error" class="error" style="margin-top:7px"></div><div id="members-list" class="stop-list"></div>
-          <div id="pending-invites" class="muted" style="margin-top:10px"></div><button class="btn hidden" id="accept-invites" type="button" style="margin-top:9px">Accepter les invitations reçues</button>
-        </section>
-        <section class="panel"><div class="panel-head"><h2>Créer un autre voyage</h2></div><form id="create-trip-form" class="actions"><input id="new-trip-name" required maxlength="80" placeholder="Ex. Road trip en Italie" style="border:1px solid var(--line);border-radius:7px;padding:9px 10px;font-size:11px"><button class="btn" type="submit">Créer</button></form><div id="create-trip-error" class="error" style="margin-top:7px"></div></section>
-      </section>
       <div class="footer">Voyagez ensemble · Données hébergées dans votre projet Supabase privé.</div>
     </main>
+  </div>
+  <div id="trip-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="trip-modal-title">
+    <section class="modal">
+      <div class="modal-head"><div><h2 id="trip-modal-title">Ajouter un voyage</h2><p class="sub">Les informations pourront être modifiées depuis la feuille de route.</p></div><button class="close" id="close-trip-modal" type="button" aria-label="Fermer">×</button></div>
+      <form id="create-trip-form">
+        <div class="field"><label for="new-trip-name">Nom du voyage *</label><input id="new-trip-name" required maxlength="80" placeholder="Ex. Vacances en Italie"></div>
+        <div class="field"><label for="new-trip-destination">Destination / lieux</label><input id="new-trip-destination" maxlength="120" placeholder="Ex. Rome, Florence, Venise"></div>
+        <div class="form-grid">
+          <div class="field"><label for="new-trip-start">Date de départ</label><input id="new-trip-start" type="date"></div>
+          <div class="field"><label for="new-trip-end">Date de retour</label><input id="new-trip-end" type="date"></div>
+        </div>
+        <div class="field"><label for="new-trip-emails">E-mails des participants</label><textarea id="new-trip-emails" placeholder="Une adresse par ligne (facultatif)"></textarea><span class="muted">Les participants devront créer un compte avec cette adresse. Aucun e-mail automatique n’est envoyé.</span></div>
+        <div id="create-trip-error" class="error" role="status"></div>
+        <div class="actions"><button class="btn primary" id="create-trip-submit" type="submit">Créer le voyage</button><button class="btn" id="cancel-trip-create" type="button">Annuler</button></div>
+      </form>
+    </section>
   </div>
   <div id="stop-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="stop-modal-title">
     <section class="modal"><div class="modal-head"><h2 id="stop-modal-title">Ajouter une étape</h2><button class="close" id="close-modal" type="button" aria-label="Fermer">×</button></div>
@@ -120,12 +143,13 @@
       const formatDate = (value, options = {weekday:"long",day:"numeric",month:"long"}) => value ? new Intl.DateTimeFormat("fr-FR", options).format(new Date(`${value}T12:00:00`)) : "";
       const formatTime = (value) => value ? new Intl.DateTimeFormat("fr-FR",{hour:"2-digit",minute:"2-digit"}).format(new Date(value)) : "—";
       const dateInput = (value) => value ? new Date(new Date(value).getTime()-new Date(value).getTimezoneOffset()*60000).toISOString().slice(0,16) : "";
+      const parseEmails = (value) => [...new Set(value.split(/[\s,;]+/).map(email=>email.trim().toLowerCase()).filter(Boolean))];
       const tripDate = (value) => {
         if (!value) return "";
         const date = new Date(value);
         return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
       };
-      let supabase, user, trips = [], trip = null, stops = [], members = [], markers = [], maps = [], authMode = "login", refreshTimer, channel;
+      let supabase, user, trips = [], trip = null, stops = [], members = [], tripInvitations = [], pendingInvitations = [], markers = [], maps = [], authMode = "login", refreshTimer, channel;
       const notify = (message) => {
         const toast=$("toast"); toast.textContent=message; toast.classList.add("show");
         clearTimeout(notify.timer); notify.timer=setTimeout(()=>toast.classList.remove("show"),2800);
@@ -177,6 +201,17 @@
         else if(authMode==="signup")notify("Compte créé.");
       });
       $("logout-button").addEventListener("click",async()=>{const {error}=await supabase.auth.signOut();if(error){console.error("Déconnexion impossible.",error);notify("Déconnexion impossible.");}});
+      const showTripModal = () => {
+        $("create-trip-form").reset();
+        showError("create-trip-error","");
+        $("trip-modal").classList.add("show");
+        $("new-trip-name").focus();
+      };
+      const closeTripModal = () => $("trip-modal").classList.remove("show");
+      $("create-trip-open").addEventListener("click",showTripModal);
+      $("close-trip-modal").addEventListener("click",closeTripModal);
+      $("cancel-trip-create").addEventListener("click",closeTripModal);
+      $("trip-modal").addEventListener("click",(event)=>{if(event.target===$("trip-modal"))closeTripModal();});
       const showApp = async () => {
         setAuth(false); $("user-email").textContent=user.email||"Compte connecté";
         try { await loadTrips(); }
@@ -186,22 +221,24 @@
         const {data,error}=await supabase.from("trips").select("id,name,destination,start_date,end_date,created_at").order("created_at",{ascending:true});
         if(error)throw error;
         trips=data||[];
-        const {data:pending,error:pendingError}=await supabase.from("trip_invitations").select("id,trip_id");
+        const {data:pending,error:pendingError}=await supabase.from("trip_invitations").select("id,trip_id,email");
         if(pendingError)throw pendingError;
-        $("pending-invites").textContent=pending?.length?`${pending.length} invitation${pending.length>1?"s":""} en attente.`:"";
-        $("accept-invites").classList.toggle("hidden",!pending?.length);
-        if(!trips.length){trip=null;stops=[];members=[];render();return;}
+        pendingInvitations=(pending||[]).filter(item=>item.email?.toLowerCase()===user.email?.toLowerCase());
+        $("incoming-invites").classList.toggle("hidden",!pendingInvitations.length);
+        $("incoming-invites-message").textContent=pendingInvitations.length?`Vous avez ${pendingInvitations.length} invitation${pendingInvitations.length>1?"s":""} à rejoindre.`:"";
+        if(!trips.length){trip=null;stops=[];members=[];tripInvitations=[];render();return;}
         const currentId=trips.some(item=>item.id===trip?.id)?trip.id:trips[0].id;
         await selectTrip(currentId);
       };
       const selectTrip = async (id) => {
         trip=trips.find(item=>item.id===id); if(!trip)return;
-        const [stopResult,memberResult]=await Promise.all([
+        const [stopResult,memberResult,invitationResult]=await Promise.all([
           supabase.from("stops").select("id,trip_id,title,address,starts_at,ends_at,description,latitude,longitude,created_at").eq("trip_id",id).order("starts_at"),
-          supabase.from("trip_members").select("user_id,email,role,created_at").eq("trip_id",id).order("created_at")
+          supabase.from("trip_members").select("user_id,email,role,created_at").eq("trip_id",id).order("created_at"),
+          supabase.from("trip_invitations").select("id,email,created_at").eq("trip_id",id).order("created_at")
         ]);
-        if(stopResult.error)throw stopResult.error;if(memberResult.error)throw memberResult.error;
-        stops=stopResult.data||[];members=memberResult.data||[];
+        if(stopResult.error)throw stopResult.error;if(memberResult.error)throw memberResult.error;if(invitationResult.error)throw invitationResult.error;
+        stops=stopResult.data||[];members=memberResult.data||[];tripInvitations=invitationResult.data||[];
         await loadFiles();render();setupRealtime();
       };
       $("sidebar-trips").addEventListener("click",async(event)=>{
@@ -226,18 +263,21 @@
         channel=supabase.channel(`trip-${trip.id}`)
           .on("postgres_changes",{event:"*",schema:"public",table:"stops",filter:`trip_id=eq.${trip.id}`},()=>refreshSelected())
           .on("postgres_changes",{event:"*",schema:"public",table:"trips",filter:`id=eq.${trip.id}`},()=>refreshSelected())
+          .on("postgres_changes",{event:"*",schema:"public",table:"trip_invitations",filter:`trip_id=eq.${trip.id}`},()=>refreshSelected())
           .on("postgres_changes",{event:"*",schema:"public",table:"stop_attachments"},()=>refreshSelected())
           .subscribe((status)=>{if(status==="CHANNEL_ERROR")console.warn("La synchronisation en direct n’est pas disponible; actualisation périodique active.");});
         clearInterval(refreshTimer);refreshTimer=setInterval(()=>refreshSelected().catch(error=>console.error("Actualisation du voyage impossible.",error)),20000);
       };
       let refreshLock=false;
-      const refreshSelected=async()=>{if(!trip||refreshLock)return;refreshLock=true;try{const id=trip.id;const {data,error}=await supabase.from("trips").select("id,name,destination,start_date,end_date,created_at").eq("id",id).single();if(error)throw error;trip=data;trips=trips.map(item=>item.id===id?data:item);const [s,m]=await Promise.all([supabase.from("stops").select("id,trip_id,title,address,starts_at,ends_at,description,latitude,longitude,created_at").eq("trip_id",id).order("starts_at"),supabase.from("trip_members").select("user_id,email,role,created_at").eq("trip_id",id).order("created_at")]);if(s.error)throw s.error;if(m.error)throw m.error;stops=s.data||[];members=m.data||[];await loadFiles();render();}finally{refreshLock=false;}};
+      const refreshSelected=async()=>{if(!trip||refreshLock)return;refreshLock=true;try{const id=trip.id;const {data,error}=await supabase.from("trips").select("id,name,destination,start_date,end_date,created_at").eq("id",id).single();if(error)throw error;trip=data;trips=trips.map(item=>item.id===id?data:item);const [s,m,i]=await Promise.all([supabase.from("stops").select("id,trip_id,title,address,starts_at,ends_at,description,latitude,longitude,created_at").eq("trip_id",id).order("starts_at"),supabase.from("trip_members").select("user_id,email,role,created_at").eq("trip_id",id).order("created_at"),supabase.from("trip_invitations").select("id,email,created_at").eq("trip_id",id).order("created_at")]);if(s.error)throw s.error;if(m.error)throw m.error;if(i.error)throw i.error;stops=s.data||[];members=m.data||[];tripInvitations=i.data||[];await loadFiles();render();}finally{refreshLock=false;}};
       const render = () => {
         $("sidebar-trips").innerHTML=trips.length
           ?trips.map(item=>`<button type="button" role="listitem" data-trip-id="${escapeHTML(item.id)}" class="${item.id===trip?.id?"active":""}" aria-current="${item.id===trip?.id?"page":"false"}">${escapeHTML(item.name)}</button>`).join("")
-          :'<div class="trip-picker-empty">Aucun voyage pour le moment.<br>Crée ton premier voyage dans « Voyage & partage ».</div>';
+          :'<div class="trip-picker-empty">Aucun voyage pour le moment.<br>Crée ton premier voyage avec le bouton +.</div>';
         const hasTrip=Boolean(trip);$("add-stop-top").disabled=!hasTrip;
-        if(!hasTrip){$("trip-heading").textContent="Créez votre premier voyage";$("trip-subheading").textContent="Invitez vos compagnons et composez votre feuille de route."; $("trip-destination").textContent="À définir";$("trip-dates").textContent="";$("timeline").innerHTML='<div class="empty"><strong>Aucun voyage pour le moment</strong>Créez-en un dans « Voyage & partage ».</div>';$("stat-days").textContent="—";$("stat-stops").textContent="0";$("stat-files").textContent="0";$("members-list").innerHTML="";updateMaps([]);return;}
+        $("trip-details").classList.toggle("hidden",!hasTrip);
+        $("pending-invites").textContent=tripInvitations.length?`${tripInvitations.length} invitation${tripInvitations.length>1?"s":""} en attente`:"";
+        if(!hasTrip){$("trip-heading").textContent="Créez votre premier voyage";$("trip-subheading").textContent="Ajoutez un voyage avec le bouton + dans « Mes voyages »."; $("trip-destination").textContent="À définir";$("trip-dates").textContent="";$("timeline").innerHTML='<div class="empty"><strong>Aucun voyage pour le moment</strong>Utilisez le bouton + près de « Mes voyages » pour commencer.</div>';$("stat-days").textContent="—";$("stat-stops").textContent="0";$("stat-files").textContent="0";$("members-list").innerHTML="";updateMaps([]);return;}
         $("trip-heading").textContent=trip.name;$("trip-destination").textContent=trip.destination||"Destination à définir";
         $("trip-dates").textContent=trip.start_date&&trip.end_date?`${formatDate(trip.start_date)} — ${formatDate(trip.end_date)}`:"Dates à définir";
         $("trip-subheading").textContent=`${members.length} participant${members.length>1?"s":""} · programme partagé`;
@@ -246,7 +286,7 @@
         const grouped=stops.reduce((acc,item)=>{const day=tripDate(item.starts_at);(acc[day] ||= []).push(item);return acc;},{});
         $("timeline").innerHTML=stops.length?Object.entries(grouped).map(([day,items])=>`<div style="margin-bottom:19px"><div class="eyebrow">${escapeHTML(formatDate(day))}</div><div class="timeline">${items.map(renderStop).join("")}</div></div>`).join(""):'<div class="empty"><strong>La route est à vous.</strong>Ajoutez une première étape avec son horaire et son adresse.</div>';
         $("trip-name").value=trip.name;$("trip-destination-input").value=trip.destination||"";$("trip-start").value=trip.start_date||"";$("trip-end").value=trip.end_date||"";
-        $("members-list").innerHTML=members.map(member=>`<div class="stop-row"><div><div class="stop-name">${escapeHTML(member.email||`Participant ${member.user_id.slice(0,8)}`)}</div><div class="stop-meta">${escapeHTML(member.role||"participant")}</div></div>${member.role==="owner"?'<span class="muted">Propriétaire</span>':""}</div>`).join("");
+        $("members-list").innerHTML=[...members.map(member=>`<div class="stop-row"><div><div class="stop-name">${escapeHTML(member.email||`Participant ${member.user_id.slice(0,8)}`)}</div><div class="stop-meta">${escapeHTML(member.role||"participant")}</div></div>${member.role==="owner"?'<span class="muted">Propriétaire</span>':""}</div>`),...tripInvitations.map(invitation=>`<div class="stop-row"><div><div class="stop-name">${escapeHTML(invitation.email)}</div><div class="stop-meta">Invitation en attente</div></div><span class="pending-email">En attente</span></div>`)].join("")||'<div class="muted">Aucun participant pour le moment.</div>';
         const mapPoints=stops.filter(item=>item.latitude!==null&&item.latitude!==undefined&&item.longitude!==null&&item.longitude!==undefined&&Number.isFinite(Number(item.latitude))&&Number.isFinite(Number(item.longitude)));
         $("stop-list").innerHTML=mapPoints.length?mapPoints.map(item=>`<div class="stop-row"><div><div class="stop-name">${escapeHTML(item.title)}</div><div class="stop-meta">${escapeHTML(formatTime(item.starts_at))} · ${escapeHTML(item.address||"")}</div></div><button class="tiny" data-focus-stop="${escapeHTML(item.id)}">Voir sur la carte</button></div>`).join(""):'<div class="empty">Aucune étape géolocalisée pour le moment.</div>';
         updateMaps(mapPoints);
@@ -357,28 +397,77 @@
       $("trip-form").addEventListener("submit",async(event)=>{
         event.preventDefault();showError("trip-form-error","");const start=$("trip-start").value||null,end=$("trip-end").value||null;
         if(start&&end&&end<start){showError("trip-form-error","La date de retour doit être après le départ.");return;}
-        const {error}=await supabase.from("trips").update({name:$("trip-name").value.trim(),destination:$("trip-destination-input").value.trim()||null,start_date:start,end_date:end}).eq("id",trip.id);
-        if(error){console.error("Modification du voyage impossible.",error);showError("trip-form-error",error.message);return;}
-        await refreshSelected();notify("Informations du voyage enregistrées.");
+        const button=event.submitter;button.disabled=true;
+        try{
+          const {error}=await supabase.from("trips").update({name:$("trip-name").value.trim(),destination:$("trip-destination-input").value.trim()||null,start_date:start,end_date:end}).eq("id",trip.id);
+          if(error)throw error;
+          await refreshSelected();notify("Informations du voyage enregistrées.");
+        }catch(error){console.error("Modification du voyage impossible.",error);showError("trip-form-error",error.message||"Impossible d’enregistrer les informations.");}
+        finally{button.disabled=false;}
       });
       $("invite-form").addEventListener("submit",async(event)=>{
-        event.preventDefault();showError("invite-error","");const email=$("invite-email").value.trim().toLowerCase();
-        const {error}=await supabase.from("trip_invitations").insert({trip_id:trip.id,email,invited_by:user.id});
-        if(error){console.error("Envoi de l’invitation impossible.",error);showError("invite-error",error.code==="23505"?"Cette personne a déjà une invitation en attente.":error.message);return;}
-        $("invite-email").value="";notify("Invitation enregistrée. Demandez à la personne de se connecter pour l’accepter.");
+        event.preventDefault();showError("invite-error","");
+        const email=$("invite-email").value.trim().toLowerCase();
+        if(email===user.email?.toLowerCase()){showError("invite-error","Vous participez déjà à ce voyage.");return;}
+        const button=$("invite-button");button.disabled=true;
+        try{
+          if(tripInvitations.some(item=>item.email.toLowerCase()===email)){showError("invite-error","Cette personne a déjà une invitation en attente.");return;}
+          if(members.some(item=>item.email?.toLowerCase()===email)){showError("invite-error","Cette personne participe déjà au voyage.");return;}
+          const {error}=await supabase.from("trip_invitations").insert({trip_id:trip.id,email,invited_by:user.id});
+          if(error)throw error;
+          $("invite-email").value="";await refreshSelected();notify("Invitation enregistrée. Demandez à la personne de se connecter pour l’accepter.");
+        }catch(error){console.error("Envoi de l’invitation impossible.",error);showError("invite-error",error.code==="23505"?"Cette personne a déjà une invitation en attente.":error.message||"Impossible d’enregistrer l’invitation.");}
+        finally{button.disabled=false;}
       });
       $("accept-invites").addEventListener("click",async()=>{
-        const {data,error}=await supabase.rpc("accept_trip_invitations");
-        if(error){console.error("Acceptation des invitations impossible.",error);notify("Impossible d’accepter les invitations.");return;}
-        await loadTrips();notify(`${data||0} invitation${data===1?"":"s"} acceptée${data===1?"":"s"}.`);
+        const button=$("accept-invites");button.disabled=true;
+        try{
+          const {data,error}=await supabase.rpc("accept_trip_invitations");
+          if(error)throw error;
+          await loadTrips();notify(`${data||0} invitation${data===1?"":"s"} acceptée${data===1?"":"s"}.`);
+        }catch(error){console.error("Acceptation des invitations impossible.",error);notify(error.message||"Impossible d’accepter les invitations.");}
+        finally{button.disabled=false;}
       });
       $("create-trip-form").addEventListener("submit",async(event)=>{
         event.preventDefault();showError("create-trip-error","");
-        const {data,error}=await supabase.from("trips").insert({name:$("new-trip-name").value.trim(),owner_id:user.id}).select("id,name,destination,start_date,end_date,created_at").single();
-        if(error){console.error("Création du voyage impossible.",error);showError("create-trip-error",error.message);return;}
-        $("new-trip-name").value="";trips.push(data);await selectTrip(data.id);document.querySelector('.nav button[data-view="route"]').click();notify("Voyage créé.");
+        const start=$("new-trip-start").value||null,end=$("new-trip-end").value||null;
+        if(start&&end&&end<start){showError("create-trip-error","La date de retour doit être après le départ.");return;}
+        const emails=parseEmails($("new-trip-emails").value);
+        const invalidEmail=emails.find(email=>!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+        if(invalidEmail){showError("create-trip-error",`Adresse e-mail invalide : ${invalidEmail}`);return;}
+        const button=$("create-trip-submit");button.disabled=true;button.textContent="Création…";
+        try{
+          const {data,error}=await supabase.from("trips").insert({
+            name:$("new-trip-name").value.trim(),
+            destination:$("new-trip-destination").value.trim()||null,
+            start_date:start,
+            end_date:end,
+            owner_id:user.id
+          }).select("id,name,destination,start_date,end_date,created_at").single();
+          if(error)throw error;
+          trips.push(data);
+          await selectTrip(data.id);
+          document.querySelector('.nav button[data-view="route"]').click();
+          closeTripModal();
+          if(emails.length){
+            const invitees=emails.filter(email=>email!==user.email?.toLowerCase());
+            if(invitees.length){
+              const {error:inviteError}=await supabase.from("trip_invitations").insert(invitees.map(email=>({trip_id:data.id,email,invited_by:user.id})));
+              if(inviteError){
+                console.error("Voyage créé, mais les invitations n’ont pas toutes été enregistrées.",inviteError);
+                $("trip-details").open=true;
+                $("invite-email").value=invitees[0];
+                notify("Voyage créé, mais les invitations n’ont pas été enregistrées. Réessayez dans Participants.");
+              }else{
+                await refreshSelected();
+                notify("Voyage créé et invitations enregistrées. Aucun e-mail automatique n’est envoyé.");
+              }
+            }else notify("Voyage créé. Votre adresse a été ignorée dans les invitations.");
+          }else notify("Voyage créé.");
+        }catch(error){console.error("Création du voyage impossible.",error);showError("create-trip-error",error.message||"Impossible de créer le voyage.");}
+        finally{button.disabled=false;button.textContent="Créer le voyage";}
       });
-      document.addEventListener("keydown",event=>{if(event.key==="Escape")closeModal();});
+      document.addEventListener("keydown",event=>{if(event.key==="Escape"){closeModal();closeTripModal();}});
       init().catch(error=>{console.error("Initialisation de Cap impossible.",error);setAuth(true);showError("auth-error","Impossible de joindre Supabase. Vérifiez l’URL et la clé publique.");});
     })();
   </script>
